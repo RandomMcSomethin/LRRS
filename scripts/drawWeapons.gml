@@ -1,0 +1,23 @@
+///drawWeapons()
+draw_set_color(c_white);
+draw_set_font(font_gamefont);
+draw_set_halign(fa_left);
+var cardSprite = -1;
+if (obj_weaponmenu.selected == 1) var cardSprite = 0;
+if (obj_weaponmenu.selected == 2 && shopCheck(WEAPONS, 0)) var cardSprite = 1;
+if (obj_weaponmenu.selected == 3 && shopCheck(WEAPONS, 1)) var cardSprite = 2;
+draw_background_part(bg_logs3, 0, 0, room_width/2, 14 + sprite_get_width(spr_shopcards)*2 + sprite_get_height(spr_shopcards)*2, 0, 0);
+if (cardSprite != -1) draw_sprite_ext(spr_shopcards, cardSprite, 20 + sprite_get_width(spr_shopcards), room_height/2, 2, 2, 0, c_white, 1);
+shader_reset();
+draw_set_font(font_menufont);
+draw_set_halign(fa_left);
+var wepDesc = "";
+if (obj_weaponmenu.selected == 1) var wepDesc = getWeaponString(2, 0);
+if (obj_weaponmenu.selected == 2 && shopCheck(WEAPONS, 0)) var wepDesc = getWeaponString(2, 1);
+if (obj_weaponmenu.selected == 3 && shopCheck(WEAPONS, 1)) var wepDesc = getWeaponString(2, 2);
+draw_text_ext(20, room_height/4, wepDesc, 3 + font_get_size(font_menufont), 240);
+var wepName = "Weapons";
+if (obj_weaponmenu.selected == 1) var wepName = getWeaponString(0, 0);
+if (obj_weaponmenu.selected == 2 && shopCheck(WEAPONS, 0)) var wepName = getWeaponString(0, 1);
+if (obj_weaponmenu.selected == 3 && shopCheck(WEAPONS, 1)) var wepName = getWeaponString(0, 2);
+draw_text(10, 10, wepName);

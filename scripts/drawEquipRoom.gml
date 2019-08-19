@@ -1,0 +1,2 @@
+///drawEquipRoom()
+
