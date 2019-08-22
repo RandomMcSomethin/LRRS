@@ -17,11 +17,12 @@ if (x < X - moveSpeed && xspeed < moveSpeed) {
 else { xspeed = xspeed/moveSpeed; }  
 if (xspeed == 0 && yspeed == 0 && attackTimer = 0) attackTimer += moveFactor;
 //Charges after 1 seconds of being still
-if (attackTimer == 60 && flag[0] == 0) {
-    playSFX(snd_alarm);
+if (attackTimer == 15 && flag[0] == 0) {
+    playSFX(snd_alarm2);
     image_speed = 0.6;
     beamTimer = 120;
     flag[0] = 1;
+    attackTimer = 60;
 }
 //Charging
 if (attackTimer > 0 && attackTimer < 90 && instance_exists(target)) { pointDirection = angle;

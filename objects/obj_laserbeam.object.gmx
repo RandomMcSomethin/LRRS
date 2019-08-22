@@ -77,7 +77,7 @@ if (lt &gt; lifeTime) instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(c_yellow);
+            <string>draw_set_color(c_teal);
 draw_set_alpha(0.5);
 draw_circle(x - 1, y, sin(lt/4)*2 + sprite_width/100, false);
 draw_circle(x - 1, y, cos(lt/4)*2 + sprite_width/90, true);
