@@ -241,8 +241,9 @@ if (collidedEntity.hp &gt; 0 &amp;&amp; collidedEntity.iF == 0 &amp;&amp; instan
     playSFX(snd_clank1); }
     
     for (i = 0; i &lt; array_length_1d(resist); i++) { //Damage is dealt according to each element
-        if (element == i) collidedEntity.hp -= dmg*(1 - collidedEntity.resist[i]); //Damage is only dealt if the element check matches the attacker's element so that damage is not
-                                                                    //dealt four times
+        if (element == i &amp;&amp; collidedEntity.resist[i] &lt; 1) { //Damage is only dealt if the element check matches the attacker's element so that damage is not
+               collidedEntity.hp -= dmg*(1 - collidedEntity.resist[i]); //dealt four times
+        } else if (collidedEntity.resist[i] &gt;= 1) collidedEntity.iF = 0;
     }
     //--Element types:
     if (instance_exists(collidedEntity)) {

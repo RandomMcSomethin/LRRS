@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>event_inherited()
 image_speed = 0.3;
-hp = 0.3;
+hp = 0.5;
 logNumber = 1;
 damage = 0.1;
 image_angle = 270;
@@ -112,13 +112,13 @@ if (movePattern == 1) enemyMovementPoint(destX, destY);
             <kind>1</kind>
             <string>if (instance_exists(target)) {
     var fireAngle = point_direction(x, y, target.x, target.y - 4);
-    b = instance_create(x + lengthdir_x((sprite_width*image_xscale)/2, fireAngle), y + lengthdir_y(sprite_height/2, fireAngle), obj_enemybullet);
+    b = instance_create(x + lengthdir_x((sprite_width*image_xscale)/2, fireAngle), y + lengthdir_y(sprite_height/2, fireAngle), obj_enemybulletcyan);
     b.xspeed = 3*cos(degtorad(fireAngle));
     b.yspeed = -3*sin(degtorad(fireAngle));
     playSFX(snd_enemyshoot);
     image_xscale = 0.7;
     var p_shooter = part_type_create(); 
-    part_type_color1(p_shooter, $006AFF); 
+    part_type_color1(p_shooter, $FFFF00); 
     part_type_direction(p_shooter, 0, 360, 0, 0);
     part_type_life(p_shooter, 10, 15);
     part_type_gravity(p_shooter, 0.07, 270);

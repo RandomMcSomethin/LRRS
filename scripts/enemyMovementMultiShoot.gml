@@ -1,5 +1,6 @@
 ///enemyMovementMultiShoot(shotCount)
 var shotCount = argument[0];
+
 if (y < room_height/4 && yspeed < moveSpeed) {
     yspeed += acceleration;
     pointDirection = point_direction(x, y, x + xspeed, y + yspeed);

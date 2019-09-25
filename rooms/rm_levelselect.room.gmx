@@ -53,7 +53,7 @@ playMusic(mus_sunsetskies);</code>
   </views>
   <instances>
     <instance objName="obj_levelicons" x="160" y="96" name="inst_E7EF8693" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_manager" x="288" y="160" name="inst_E5FBAC44" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_manager" x="288" y="160" name="inst_E5FBAC44" locked="0" code="bgspeed = 0;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

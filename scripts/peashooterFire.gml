@@ -20,7 +20,7 @@ if (flag[0] != weaponTimer) {
             b.xspeed = random_range(-0.2, 0.2);
             part_particles_create(SNAME, x, y - sprite_height/2, p_peashooter, 3);
             part_particles_create(SNAME, x, y - sprite_height/2, p_flare, 1);
-            playSFX(snd_pew);
+            playSFX(snd_playerpew);
             if (weaponTimer >= 20) {
                 weaponTimer = -20;
             }
@@ -34,7 +34,7 @@ if (flag[0] != weaponTimer) {
             b.xspeed = random_range(-0.1, 0.1);
             part_particles_create(SNAME, x, y - sprite_height/2, p_peashooter, 4);
             part_particles_create(SNAME, x, y - sprite_height/2, p_flare, 2);
-            playSFX(snd_pew);
+            playSFX(snd_playerpew);
             if (weaponTimer >= 20) {
                 weaponTimer = 0;
             }
@@ -48,7 +48,7 @@ if (flag[0] != weaponTimer) {
             b.xspeed = 0;
             part_particles_create(SNAME, x, y - sprite_height/2, p_peashooter, 2);
             part_particles_create(SNAME, x, y - sprite_height/2, p_flare, 1);
-            playSFX(snd_pew);
+            playSFX(snd_playerpew);
             if (weaponTimer > 5) {
                 weaponTimer = 0;
             }
@@ -59,7 +59,7 @@ if (flag[0] != weaponTimer) {
             b.xspeed = 0;
             part_particles_create(SNAME, x, y - sprite_height/2, p_peashooter, 2);
             part_particles_create(SNAME, x, y - sprite_height/2, p_flare, 1);
-            playSFX(snd_pew);
+            playSFX(snd_playerpew);
             if (weaponTimer > 5) {
                 weaponTimer = -5;
             }
@@ -79,7 +79,7 @@ if (flag[0] != weaponTimer) {
             b.xspeed = 1;
             part_particles_create(SNAME, x, y - sprite_height/2, p_peashooter, 4);
             part_particles_create(SNAME, x, y - sprite_height/2, p_flare, 2);
-            playSFX(snd_pew);
+            playSFX(snd_playerpew);
             if (weaponTimer >= 20) {
                 weaponTimer = 0;
             }

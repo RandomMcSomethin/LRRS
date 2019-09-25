@@ -17,7 +17,7 @@ if (x < X - moveSpeed && xspeed < moveSpeed) {
 else { xspeed = xspeed/moveSpeed; }  
 if (xspeed == 0 && yspeed == 0 && attackTimer = 0) attackTimer += moveFactor;
 //Charges after 1 seconds of being still
-if (attackTimer == 60 && flag[0] == 0) {
+if (attackTimer >= 60 && flag[0] == 0) {
     playSFX(snd_alarm);
     image_speed = 0.6;
     beamTimer = 120;
@@ -31,7 +31,7 @@ if (attackTimer > 90 && attackTimer < 100) {
     if (image_xscale > 0.5) { image_xscale -= 0.05; }
 }
 //Fire beam
-if (ceil(attackTimer == 100) && flag[1] == 0) {
+if (ceil(attackTimer >= 100) && flag[1] == 0) {
     event_user(EV_SHOOT);
     image_speed = 0.3;
     flag[1] = 1;

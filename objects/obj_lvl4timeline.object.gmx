@@ -81,8 +81,9 @@ if (secondTimer == 20) instance_create(room_width*(1/8), -20, obj_icicler);
 if (secondTimer == 26) instance_create(room_width*(2/8), -20, obj_icicler);
 if (secondTimer == 27) instance_create(room_width*(1/8), -20, obj_multishooter);
 if (secondTimer == 27.5) instance_create(room_width*(3/8), -20, obj_multishooter);
-if (secondTimer == 30) instance_create(room_width*(2/8), -20, obj_laserenemy);
-if (secondTimer == 53) levelComplete = true;
+if (secondTimer == 30) l1 = instance_create(room_width*(2/8), -20, obj_laserenemy);
+if (secondTimer == 40) l1.flag[2] = 1;
+if (secondTimer == 60) levelComplete = true;
 if (levelComplete) { unlock(LEVELS, 3); }
 //debug(string(instance_count));
 </string>

@@ -83,7 +83,6 @@
     <sound>sound\snd_sailingthroughanotherdimension</sound>
     <sound>sound\snd_scrape</sound>
     <sound>sound\snd_shoot</sound>
-    <sound>sound\snd_shoresofcataclysm</sound>
     <sound>sound\snd_silence</sound>
     <sound>sound\snd_snowonsnowonsnow</sound>
     <sound>sound\snd_starcrunch</sound>
@@ -367,6 +366,7 @@
     </objects>
     <objects name="Enemy Bullets">
       <object>objects\obj_enemybullet</object>
+      <object>objects\obj_enemybulletcyan</object>
       <object>objects\obj_enemyicebullet</object>
       <object>objects\obj_enemyfirebullet</object>
       <object>objects\obj_enemybulletgreen</object>
