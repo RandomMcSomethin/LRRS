@@ -265,6 +265,7 @@
       <script>scripts\getWeaponString.gml</script>
       <script>scripts\toast.gml</script>
       <script>scripts\setIniReal.gml</script>
+      <script>scripts\shoot.gml</script>
       <script>scripts\summonLaser.gml</script>
       <script>scripts\dropMetals.gml</script>
       <script>scripts\getLogInfo.gml</script>
