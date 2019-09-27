@@ -90,9 +90,18 @@ if (secondTimer == 40) {
 }
 if (secondTimer == 40) {
     l2.angle = 0;
+    l2.destY = room_height*0.8;
 }
-if (secondTimer == 50) instance_create(room_width*(2/8), -20, obj_whitestinger);
-if (secondTimer == 90) levelComplete = true;
+if (secondTimer == 41) { 
+    l3 = instance_create(room_width/2 - room_width/16, -20, obj_laserenemy); 
+}
+if (secondTimer == 41) {
+    l3.angle = 180;
+    l3.destY = room_height*0.3;
+}
+if (secondTimer == 44) instance_create(room_width*(3/8), -20, obj_multishooter);
+if (secondTimer == 45) instance_create(room_width*(2/8), -20, obj_whitestinger);
+if (secondTimer == 60) levelComplete = true;
 if (levelComplete) { unlock(LEVELS, 3); }
 //debug(string(instance_count));
 </string>
