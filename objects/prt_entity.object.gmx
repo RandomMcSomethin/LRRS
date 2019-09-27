@@ -86,6 +86,8 @@ for (i = 0; i &lt; flagCount; i++) {
 }
 
 blendTimer = 0;
+
+canReflectCyan = false; //Can reflect cyan projectiles?
 </string>
           </argument>
         </arguments>

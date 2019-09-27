@@ -1,4 +1,4 @@
-///shoot(direction, speed)
+///setDirSpeed(direction, speed)
 var dir = argument[0];
 var spd = argument[1];
 

@@ -59,6 +59,7 @@ t.text = "Level 4:#Snow on Snow on Snow";</code>
     <instance objName="obj_manager" x="64" y="96" name="inst_398AC05E" locked="0" code="bgspeed = 1;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_transitionfadein" x="64" y="32" name="inst_5224C95D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_lvl4timeline" x="96" y="160" name="inst_DD93835E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_whitestinger" x="128" y="-64" name="inst_49AB7063" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

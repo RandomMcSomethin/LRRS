@@ -74,3 +74,9 @@ if (hull == 1 || stunned == 1) {
     draw_line(o, scanlineTimer, o + 256, scanlineTimer);
     draw_set_alpha(1);
 }
+//Overlay
+shader_set(shader_paletteswap);
+texture_set_stage(pSSampler, palettes);
+shader_set_uniform_f(v_offset, v_normal);
+draw_sprite(spr_overlay, -1, room_width*(3/4), room_height/2);
+shader_reset();

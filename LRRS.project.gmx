@@ -138,6 +138,7 @@
       <sprite>sprites\spr_flame</sprite>
       <sprite>sprites\spr_arrows</sprite>
       <sprite>sprites\spr_gamefont</sprite>
+      <sprite>sprites\spr_overlay</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_enemytest</sprite>
@@ -152,6 +153,10 @@
       <sprite>sprites\spr_stinger</sprite>
       <sprite>sprites\spr_stingercharge</sprite>
       <sprite>sprites\spr_stingershoot</sprite>
+      <sprite>sprites\spr_whitestinger</sprite>
+      <sprite>sprites\spr_whitestingertrans</sprite>
+      <sprite>sprites\spr_whitestingershoot</sprite>
+      <sprite>sprites\spr_whitestingercharge</sprite>
       <sprite>sprites\spr_megabeamermk1</sprite>
       <sprite>sprites\spr_logmegabeamermk1</sprite>
       <sprite>sprites\spr_turret</sprite>
@@ -265,7 +270,9 @@
       <script>scripts\getWeaponString.gml</script>
       <script>scripts\toast.gml</script>
       <script>scripts\setIniReal.gml</script>
-      <script>scripts\shoot.gml</script>
+      <script>scripts\getSpeed.gml</script>
+      <script>scripts\getDirection.gml</script>
+      <script>scripts\setDirSpeed.gml</script>
       <script>scripts\summonLaser.gml</script>
       <script>scripts\dropMetals.gml</script>
       <script>scripts\getLogInfo.gml</script>
@@ -273,6 +280,7 @@
       <script>scripts\levelIcon.gml</script>
       <script>scripts\card.gml</script>
       <script>scripts\processMenuItem.gml</script>
+      <script>scripts\reflectAngle.gml</script>
     </scripts>
   </scripts>
   <shaders name="shaders">
@@ -345,6 +353,7 @@
       <object>objects\obj_shooter</object>
       <object>objects\obj_multishooter</object>
       <object>objects\obj_stinger</object>
+      <object>objects\obj_whitestinger</object>
       <object>objects\obj_beamer</object>
       <object>objects\obj_pitcher</object>
       <object>objects\obj_megabeamermk1</object>
@@ -372,7 +381,9 @@
       <object>objects\obj_enemyfirebullet</object>
       <object>objects\obj_enemybulletgreen</object>
       <object>objects\obj_stingercharge</object>
+      <object>objects\obj_whitestingercharge</object>
       <object>objects\obj_enemybigbullet</object>
+      <object>objects\obj_enemybigbulletcyan</object>
       <object>objects\obj_enemyringbullet</object>
       <object>objects\obj_beam</object>
       <object>objects\obj_laserbeam</object>

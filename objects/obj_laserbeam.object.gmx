@@ -30,6 +30,7 @@ canHit = 0;
 damage = 0.1;
 name = "Cutter Beam";
 lifeTime = 999999999999999999999999999999999999999999999;
+canReflectCyan = true;
 </string>
           </argument>
         </arguments>

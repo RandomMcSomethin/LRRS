@@ -27,6 +27,10 @@
             <kind>1</kind>
             <string>event_inherited();
 damage = 0.1;
+timer = 120;
+fireAngle = 0;
+image_xscale = 2;
+image_yscale = 2;
 image_blend = $FFFF00;
 </string>
           </argument>
@@ -51,13 +55,29 @@ image_blend = $FFFF00;
           <argument>
             <kind>1</kind>
             <string>event_inherited();
+if PAUSED exit;
 image_angle += 5;
+
 if (x &lt; sprite_width/2 + abs(xspeed) || x &gt; room_width/2 - sprite_width/2 - xspeed) xspeed = -xspeed;
 if (y &lt; sprite_height/2 + abs(yspeed) || y &gt; room_height - sprite_height/2 - yspeed) yspeed = -yspeed;
 
 reflectSurface = instance_place(x + xspeed, y + yspeed, prt_enemybullet);
 if (reflectSurface &amp;&amp; reflectSurface.canReflectCyan) {
     setDirSpeed(reflectAngle(reflectSurface.image_angle), getSpeed());
+}
+
+if (timer &gt; 0) { timer--; } else instance_destroy();
+if (timer &lt; 60 &amp;&amp; timer mod 5 == 0) {
+    b1 = instance_create(x, y, obj_enemybulletcyan);
+    b1.xspeed = 2*cos(degtorad(fireAngle));
+    b1.yspeed = -2*sin(degtorad(fireAngle));
+    b2 = instance_create(x, y, obj_enemybulletcyan);
+    b2.xspeed = 2*cos(degtorad(fireAngle + 180));
+    b2.yspeed = -2*sin(degtorad(fireAngle + 180));
+    fireAngle += 720/24;
+    image_xscale -= 2/12;
+    image_yscale -= 2/12;
+    playSFX(snd_enemyshoot);
 }
 </string>
           </argument>
