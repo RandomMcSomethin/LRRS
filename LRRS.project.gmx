@@ -187,6 +187,7 @@
     <sprite>sprites\spr_special</sprite>
     <sprite>sprites\spr_logbg</sprite>
     <sprite>sprites\spr_planets</sprite>
+    <sprite>sprites\spr_yellowglowything</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
@@ -400,10 +401,11 @@
       <object>objects\obj_lvl3timeline</object>
       <object>objects\obj_lvl4timeline</object>
     </objects>
-    <object>objects\obj_repairbox</object>
-    <object>objects\obj_weaponbox</object>
-    <objects name="Metals">
+    <objects name="Pickups">
+      <object>objects\obj_repairbox</object>
+      <object>objects\obj_weaponbox</object>
       <object>objects\obj_metalbit</object>
+      <object>objects\obj_weaponbit</object>
     </objects>
     <object>objects\obj_turrettest</object>
   </objects>

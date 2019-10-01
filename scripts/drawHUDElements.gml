@@ -41,6 +41,13 @@ if (weapon == 3) var weaponName = 'Scramble Thunder';
 if (weapon == 4) var weaponName = getWeaponString(0, 2);
 draw_text(o + 25, 135, weaponName);
 draw_sprite_ext(weaponCardSprite, -1, o + 57, 106, 1, 1, 0, spriteColor, true);
+//Power Info
+draw_set_color(c_yellow);
+if (pow >= maxPow) pow = maxPow;
+draw_rectangle(o + 92, 70, o + 96, 90, true);
+if (pow - floor(pow) != 0) {
+    draw_rectangle(o + 92, 90 - ((pow - floor(pow))*20), o + 96, 90, false);
+}
 //Metal
 draw_set_color(c_white);
 draw_text(o + 25, 150, "Metal: " + string(SAVE_MAP[? "Metal"]));

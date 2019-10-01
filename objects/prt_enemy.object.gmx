@@ -69,6 +69,9 @@ if (choose(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) == 1) {
     instance_create(x, y, obj_weaponbox);
 }
 dropMetals(choose(4, 5, 6, 7, 8));
+for (i = 0; i &lt; choose(5, 7); i++) {
+    w = instance_create(x, y, obj_weaponbit);
+}
 </string>
           </argument>
         </arguments>
