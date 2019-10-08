@@ -111,6 +111,13 @@ part_type_size(p_trail, 0.15, 0.15, -0.015, 0);
 part_type_life(p_trail, 15, 15);
 part_type_alpha2(p_trail, 0.3, 0);
 part_particles_create(SNAME, x, y, p_trail, 1);
+if (SAVE_MAP[? "Colorblind Mode"]) {
+    if (image_blend == COLOR_BOUNCE) draw_sprite(spr_colorblindoverlay, 0, x, y);
+    if (image_blend == COLOR_ICE) draw_sprite(spr_colorblindoverlay, 1, x, y);
+    if (image_blend == COLOR_FIRE) draw_sprite(spr_colorblindoverlay, 2, x, y);
+    if (image_blend == COLOR_GREEN) draw_sprite(spr_colorblindoverlay, 3, x, y);
+    if (image_blend == COLOR_SPLIT) draw_sprite(spr_colorblindoverlay, 4, x, y);
+}
 </string>
           </argument>
         </arguments>

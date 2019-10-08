@@ -32,6 +32,7 @@ menuItem[2] = "Music Volume: " + string(round(SAVE_MAP[? "Music Volume"]*100)) +
 menuItem[3] = "SFX Volume: " + string(round(SAVE_MAP[? "SFX Volume"]*100)) + "%";
 menuItem[4] = "Set Controls:"
 menuItem[5] = "Reset Controls"
+menuItem[6] = "Accessibility"
 menuItem[7] = "Back";
 </string>
           </argument>
@@ -136,6 +137,9 @@ if (menuItem[selected] != -1) {
         KEY_NEXT = MANAGER.keySet[7, 1];
         KEY_CHARGE = MANAGER.keySet[8, 1];
         KEY_PAUSE = MANAGER.keySet[9, 1];
+    }
+    if (selected == 6) {
+         menu_open(obj_accessibility);
     }
     if (selected == 7) {
         save = ini_open("save.ini");

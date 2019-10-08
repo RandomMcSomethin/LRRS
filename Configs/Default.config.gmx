@@ -678,7 +678,13 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
-    <constants number="36">
+    <constants number="42">
+      <constant name="COLOR_SPLIT">$66FF22</constant>
+      <constant name="COLOR_GREEN">$00FF00</constant>
+      <constant name="COLOR_FIRE">$3333FF</constant>
+      <constant name="COLOR_ICE">$FF3333</constant>
+      <constant name="COLOR_BOUNCE">$FFFF00</constant>
+      <constant name="COLOR_REGULAR">$006AFF</constant>
       <constant name="LEVELS">global.levels</constant>
       <constant name="SPRAYS">global.sprays</constant>
       <constant name="ITEMS">global.items</constant>

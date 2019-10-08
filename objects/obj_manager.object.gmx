@@ -100,6 +100,10 @@ KEY_PREV = getIniReal("save.ini", "Controls", "Prev. Key", keySet[6, 1]);
 KEY_NEXT = getIniReal("save.ini", "Controls", "Next Key", keySet[7, 1]);
 KEY_CHARGE = getIniReal("save.ini", "Controls", "Special Key", keySet[8, 1]);
 KEY_PAUSE = getIniReal("save.ini", "Controls", "Pause Key", keySet[9, 1]);
+bgOverlayLevel = getIniReal("save.ini", "Accessibility", "Overlay Level", 0);
+ds_map_add(global.save_map, "Overlay Level", bgOverlayLevel);
+colorblindMode = getIniReal("save.ini", "Accessibility", "Colorblind Mode", false);
+ds_map_add(global.save_map, "Colorblind Mode", colorblindMode);
 ini_close();
 keySet[0, 0] = "Left"; keySet[0, 1] = KEY_LEFT;
 keySet[1, 0] = "Right"; keySet[1, 1] = KEY_RIGHT;
@@ -352,6 +356,11 @@ if (!controlsSet) {
         KEY_CHARGE = keySet[8, 1];
         KEY_PAUSE = keySet[9, 1];
     }
+}
+if (isLevel &amp;&amp; SAVE_MAP[? "Overlay Level"] &gt; 0) {
+    background_index[7] = bg_overlay;
+    background_visible[7] = true;
+    background_alpha[7] = SAVE_MAP[? "Overlay Level"]/100;
 }
 </string>
           </argument>

@@ -37,6 +37,18 @@ turnSpeed = 30;
 if (instance_exists(prt_player)) {
     target = prt_player;
 }
+
+spriteType = 0; //0 = regular, 1 = recolorable
+color_row_index = 0;
+color_sets = 5;
+v_offset = shader_get_uniform(shader_paletteswap, "offset");
+v_normal = 0;
+pSSampler = shader_get_sampler_index(shader_paletteswap, "Palette");
+palettes = background_get_texture(bg_shippalettes);
+paletteNumber = 1;
+color = 1;
+maskSprite = -1;
+maskColor = c_white;
 </string>
           </argument>
         </arguments>
@@ -141,6 +153,55 @@ stunned = 0;
     b.yspeed = -3*sin(degtorad(fireAngle));
     playSFX(snd_enemyshoot);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (spriteType == 0) {
+    image_blend = statFX();
+    draw_self();
+} else if (spriteType == 1) {
+    //Palette handler
+    if (frozen == 0) paletteNumber = color; else paletteNumber = 255;
+    if (burning == 0) paletteNumber = color; else paletteNumber = 254;
+    if (iF == 0) paletteNumber = color; else paletteNumber = 253;
+    color_row_index = paletteNumber;
+    v_normal = color_row_index/256
+
+    shader_set(shader_paletteswap);
+    texture_set_stage(pSSampler, palettes);
+    shader_set_uniform_f(v_offset, v_normal);
+    draw_self();
+    shader_reset();
+    
+    if (maskSprite != -1) {
+        draw_sprite_ext(maskSprite, -1, x, y, image_xscale, image_yscale, image_angle, maskColor, image_alpha);
+    }
+}
+drawFreeze();
+drawStun();
+//draw_text(x, y - 5, freezeTimer);
+//draw_text(x, y - 10, frozen);
+//draw_text(x, y - 10, resist[2]);
+//draw_text(x, y - 5, stunned);
 </string>
           </argument>
         </arguments>

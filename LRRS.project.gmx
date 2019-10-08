@@ -118,6 +118,7 @@
       <sprite>sprites\spr_scrambleneedle</sprite>
       <sprite>sprites\spr_icecube</sprite>
       <sprite>sprites\spr_freezeraysmall</sprite>
+      <sprite>sprites\spr_colorblindoverlay</sprite>
     </sprites>
     <sprites name="Weapon Cards">
       <sprite>sprites\spr_peashootercard</sprite>
@@ -146,8 +147,6 @@
       <sprite>sprites\spr_whiteshooter</sprite>
       <sprite>sprites\spr_shooter</sprite>
       <sprite>sprites\spr_beamer</sprite>
-      <sprite>sprites\spr_beamerfiremask</sprite>
-      <sprite>sprites\spr_laserfiremask</sprite>
       <sprite>sprites\spr_pitcher</sprite>
       <sprite>sprites\spr_stingertrans</sprite>
       <sprite>sprites\spr_stinger</sprite>
@@ -163,6 +162,16 @@
       <sprite>sprites\spr_logturret</sprite>
       <sprite>sprites\spr_laserenemy</sprite>
       <sprite>sprites\spr_icicler</sprite>
+      <sprites name="recolorable">
+        <sprite>sprites\spr_shooter_rc</sprite>
+        <sprite>sprites\spr_spiker_rc</sprite>
+      </sprites>
+      <sprites name="masks">
+        <sprite>sprites\spr_shootermask</sprite>
+        <sprite>sprites\spr_beamerfiremask</sprite>
+        <sprite>sprites\spr_spikermask</sprite>
+        <sprite>sprites\spr_laserfiremask</sprite>
+      </sprites>
     </sprites>
     <sprite>sprites\spr_gitgud</sprite>
     <sprite>sprites\spr_bombhitbox1</sprite>
@@ -192,6 +201,7 @@
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
     <background>background\bg_space</background>
+    <background>background\bg_overlay</background>
     <background>background\bg_gitgud</background>
     <background>background\bg_shippalettes</background>
     <background>background\bg_shop</background>
@@ -321,6 +331,7 @@
     <objects name="Menus">
       <object>objects\obj_titlemenu</object>
       <object>objects\obj_optionsmenu</object>
+      <object>objects\obj_accessibility</object>
       <object>objects\obj_newgamemenu</object>
       <object>objects\obj_difficultyselect</object>
       <object>objects\obj_extrasmenu</object>
@@ -363,6 +374,7 @@
       <object>objects\obj_megabeamerturret1</object>
       <object>objects\obj_asteroid</object>
       <object>objects\obj_spiker</object>
+      <object>objects\obj_splitspiker</object>
       <object>objects\obj_laserenemy</object>
       <object>objects\obj_icicler</object>
     </objects>
@@ -389,6 +401,7 @@
       <object>objects\obj_beam</object>
       <object>objects\obj_laserbeam</object>
       <object>objects\obj_enemyspikebullet</object>
+      <object>objects\obj_enemyspikebulletsplit</object>
     </objects>
     <objects name="Dialogue">
       <object>objects\obj_testdialogue</object>
@@ -422,6 +435,7 @@
     <room>rooms\rm_level4</room>
     <room>rooms\rm_enemylogs</room>
     <room>rooms\rm_test</room>
+    <room>rooms\rm_colorblindtest</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
