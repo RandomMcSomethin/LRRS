@@ -16,11 +16,11 @@ if (x < X - moveSpeed && xspeed < moveSpeed) {
 } else if (x > X + moveSpeed && xspeed > -moveSpeed) { xspeed -= acceleration; }  
 else { xspeed = xspeed/moveSpeed; }  
 if (xspeed == 0 && yspeed == 0 && attackTimer = 0) attackTimer += moveFactor;
-//Charges after 1 seconds of being still
+//Charges after 0.25 seconds of being still
 if (attackTimer >= 60 && flag[0] == 0) {
     playSFX(snd_alarm);
     image_speed = 0.6;
-    beamTimer = 120;
+    beamTimer = 100;
     flag[0] = 1;
 }
 //Charging

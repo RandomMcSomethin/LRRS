@@ -66,6 +66,7 @@ if (PAUSED) exit;
 //Movement stuff
 if (movePattern == 0) enemyMovementDefault();
 if (movePattern == 1) enemyMovementPoint(destX, destY);
+if (movePattern == 2) enemyMovementDefault(angle);
 </string>
           </argument>
         </arguments>
@@ -90,6 +91,7 @@ if (movePattern == 1) enemyMovementPoint(destX, destY);
             <kind>1</kind>
             <string>if (instance_exists(target)) {
     var fireAngle = point_direction(x, y, target.x, target.y - 4);
+    if (movePattern == 2) fireAngle = angle;
     for (i = 1; i &lt; 4; i++) {
         b = instance_create(x + lengthdir_x((sprite_width*image_xscale)/2, fireAngle), y + lengthdir_y(sprite_height/2, fireAngle), obj_enemyspikebulletsplit);
         b.xspeed = i*cos(degtorad(fireAngle));

@@ -100,8 +100,91 @@ if (secondTimer == 41) {
     l3.destY = room_height*0.3;
 }
 if (secondTimer == 44) instance_create(room_width*(3/8), -20, obj_multishooter);
-if (secondTimer == 45) instance_create(room_width*(2/8), -20, obj_whitestinger);
-if (secondTimer == 60) levelComplete = true;
+if (secondTimer == 45) { 
+    instance_create(room_width*(2/8), -20, obj_whitestinger);
+    with (obj_laserenemy) flag[2] = 1;
+}
+if (secondTimer == 47) {
+    l1 = instance_create(room_width*(1/12), -20, obj_laserenemy);
+    l1.angle = 260;
+    l2 = instance_create(room_width*(2/12), -20, obj_laserenemy);
+    l2.angle = 265;
+    l3 = instance_create(room_width*(3/12), -20, obj_laserenemy);
+    l3.angle = 270;
+    l4 = instance_create(room_width*(4/12), -20, obj_laserenemy);
+    l4.angle = 275;
+    l5 = instance_create(room_width*(5/12), -20, obj_laserenemy);
+    l5.angle = 280;
+}
+if (secondTimer == 49) {
+    instance_create(room_width*(1/8), -20, obj_multishooter);
+    instance_create(room_width*(2/8), -20, obj_multishooter);
+    instance_create(room_width*(3/8), -20, obj_multishooter);
+}
+if (secondTimer == 50) {
+    with (obj_laserenemy) flag[2] = 1;
+    l1 = instance_create(room_width*(1/12), -20, obj_laserenemy);
+    l1.angle = 270;
+    l2 = instance_create(room_width*(2/12), -20, obj_laserenemy);
+    l2.angle = 265;
+    l3 = instance_create(room_width*(3/12), -20, obj_laserenemy);
+    l3.angle = 270;
+    l4 = instance_create(room_width*(4/12), -20, obj_laserenemy);
+    l4.angle = 275;
+    l5 = instance_create(room_width*(5/12), -20, obj_laserenemy);
+    l5.angle = 270;
+}
+if (secondTimer == 52) {
+    e1 = instance_create(room_width*(1/8), -20, obj_splitspiker);
+    e1.movePattern = 2;
+    e1.angle = 265;
+    e2 = instance_create(room_width*(3/8), -20, obj_splitspiker);
+    e2.movePattern = 2;
+    e2.angle = 275;
+}
+if (secondTimer == 54) {
+    with (obj_laserenemy) flag[2] = 1;
+    l1 = instance_create(room_width*(1/12), -20, obj_laserenemy);
+    l1.angle = 280;
+    l2 = instance_create(room_width*(2/12), -20, obj_laserenemy);
+    l2.angle = 275;
+    l3 = instance_create(room_width*(3/12), -20, obj_laserenemy);
+    l3.angle = 270;
+    l4 = instance_create(room_width*(4/12), -20, obj_laserenemy);
+    l4.angle = 265;
+    l5 = instance_create(room_width*(5/12), -20, obj_laserenemy);
+    l5.angle = 260;
+}
+if (secondTimer == 54.5) {
+    l1 = instance_create(room_width*(1/64), -20, obj_laserenemy);
+    l1.angle = 0;
+    l1.destY = room_height*(1/6);
+    l2 = instance_create(room_width*(1/64), -20, obj_laserenemy);
+    l2.angle = 0;
+    l2.destY = room_height*(2/6);
+    l3 = instance_create(room_width*(1/64), -20, obj_laserenemy);
+    l3.angle = 0;
+    l3.destY = room_height*(3/6);
+    l4 = instance_create(room_width*(1/64), -20, obj_laserenemy);
+    l4.angle = 0;
+    l4.destY = room_height*(4/6);
+    l5 = instance_create(room_width*(1/64), -20, obj_laserenemy);
+    l5.angle = 0;
+    l5.destY = room_height*(5/6);
+}
+if (secondTimer == 56) {
+    instance_create(room_width/4, -20, obj_pitcher);
+    e1 = instance_create(room_width*(1/8), -20, obj_splitspiker);
+    e1.movePattern = 2;
+    e1.angle = 300;
+    e2 = instance_create(room_width*(3/8), -20, obj_splitspiker);
+    e2.movePattern = 2;
+    e2.angle = 210;
+}
+if (secondTimer == 60) {
+    with (obj_laserenemy) flag[2] = 1;
+}
+if (secondTimer == 62) levelComplete = true;
 if (levelComplete) { unlock(LEVELS, 3); }
 //debug(string(instance_count));
 </string>

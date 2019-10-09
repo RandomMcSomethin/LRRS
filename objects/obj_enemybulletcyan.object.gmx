@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>event_inherited();
 damage = 0.1;
+bounce = 5;
 image_blend = $FFFF00;
 </string>
           </argument>
@@ -56,9 +57,10 @@ if (x &lt; sprite_width/2 + abs(xspeed) || x &gt; room_width/2 - sprite_width/2 
 if (y &lt; sprite_height/2 + abs(yspeed) || y &gt; room_height - sprite_height/2 - yspeed) yspeed = -yspeed;
 
 reflectSurface = instance_place(x + xspeed, y + yspeed, prt_enemybullet);
-if (reflectSurface &amp;&amp; reflectSurface.canReflectCyan) {
+if (reflectSurface &amp;&amp; reflectSurface.canReflectCyan &amp;&amp; bounce &gt;= 5) {
     setDirSpeed(reflectAngle(reflectSurface.image_angle), getSpeed());
-}
+    bounce = 0;
+} if (bounce &lt; 5) bounce++;
 </string>
           </argument>
         </arguments>

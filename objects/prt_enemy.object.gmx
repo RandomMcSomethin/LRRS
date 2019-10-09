@@ -33,6 +33,7 @@ logNumber = -1; /*Gets its info from an enemy log rather than the
 attackTimer = 0;
 roundAttackTimer = 0;
 pointDirection = 270;
+angle = pointDirection;
 turnSpeed = 30;
 if (instance_exists(prt_player)) {
     target = prt_player;

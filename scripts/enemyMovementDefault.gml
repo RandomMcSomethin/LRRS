@@ -1,4 +1,5 @@
-///enemyMovementDefault()
+///enemyMovementDefault([pointDirection])
+if (argument_count > 0) var pD = argument[0];
 if (y < room_height/4 && yspeed < moveSpeed) {
     yspeed += acceleration;
     pointDirection = point_direction(x, y, x + xspeed, y + yspeed);
@@ -15,5 +16,7 @@ if (attackTimer > 240) {
         xspeed += acceleration;
     }
 }
-if (attackTimer > 0 && attackTimer < 240 && instance_exists(target)) pointDirection = point_direction(x, y, target.x, target.y);
+if (argument_count == 0) {
+    if (attackTimer > 0 && attackTimer < 240 && instance_exists(target)) pointDirection = point_direction(x, y, target.x, target.y);
+} else if (attackTimer > 0 && attackTimer < 240 && instance_exists(target)) pointDirection = pD;
 if (attackTimer > 0) attackTimer += moveFactor;
