@@ -166,6 +166,8 @@ sSTimer = 0;
 intensity = 0;
 sgn = 1;
 bossTimer = 0;
+isSnowy = false;
+isHot = false;
 </string>
           </argument>
         </arguments>

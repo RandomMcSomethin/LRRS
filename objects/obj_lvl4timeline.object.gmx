@@ -31,10 +31,25 @@ ini_write_real("Save", "Level", 5);
 ini_close();
 nextLevel = rm_level4;
 timer = 0;
-background_vspeed[0] = 0.1;
-background_vspeed[1] = 0.1;
-background_vspeed[2] = 0.1;
-background_vspeed[3] = 0.1;
+Sname = SNAME;
+particle1 = part_type_create();
+part_type_shape(particle1,pt_shape_star);
+part_type_size(particle1,0.10,0.10,0,0);
+part_type_scale(particle1,1,1);
+part_type_color3(particle1,16777215,15794122,16777088);
+part_type_alpha1(particle1,1);
+part_type_speed(particle1,3,5,0,0.20);
+part_type_direction(particle1,320,350,0,10);
+part_type_gravity(particle1,-0.05,285);
+part_type_orientation(particle1,0,0,1,0,1);
+part_type_blend(particle1,1);
+part_type_life(particle1,360,720);
+emitter1 = part_emitter_create(SNAME);
+part_emitter_region(Sname,emitter1,0,-20,-room_height/4,room_height*(5/4),ps_shape_line,1);
+background_vspeed[0] = 1;
+background_vspeed[1] = 1;
+background_vspeed[2] = 1;
+background_vspeed[3] = 1;
 </string>
           </argument>
         </arguments>
@@ -184,9 +199,64 @@ if (secondTimer == 56) {
 if (secondTimer == 60) {
     with (obj_laserenemy) flag[2] = 1;
 }
-if (secondTimer == 62) levelComplete = true;
+if (secondTimer &gt;= 62) levelComplete = true;
 if (levelComplete) { unlock(LEVELS, 3); }
 //debug(string(instance_count));
+
+if (!PAUSED &amp;&amp; !levelComplete) {
+    if (background_alpha[3] &gt; 0) { background_alpha[3] -= 0.0005; }
+    else if (background_alpha[2] &gt; 0) { background_alpha[2] -= 0.001; }
+    else if (background_alpha[1] &gt; 0) { background_alpha[1] -= 0.001; }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (part_emitter_exists(SNAME, emitter1)) part_emitter_destroy(SNAME, emitter1);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>event_inherited();
+if (part_emitter_exists(SNAME, emitter1)) {
+    part_emitter_stream(Sname,emitter1,particle1,2);
+}
 </string>
           </argument>
         </arguments>

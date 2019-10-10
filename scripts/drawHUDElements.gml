@@ -72,7 +72,7 @@ draw_set_color(c_white);
 draw_rectangle(o + 10, 195, o + 250, 250, true);
 draw_text_ext(o + 20, 200, dispText, 3 + font_get_size(font_menufont), 230);
 //Interference effect
-if (hull == 1 || stunned == 1) {
+if (hull == 1 || stunned == 1 || MANAGER.isSnowy == true) {
     randomize();
     draw_set_color(c_white);
     draw_set_alpha(random_range(0.3, 0.5));
