@@ -292,6 +292,7 @@
       <script>scripts\card.gml</script>
       <script>scripts\processMenuItem.gml</script>
       <script>scripts\reflectAngle.gml</script>
+      <script>scripts\placeShip.gml</script>
     </scripts>
   </scripts>
   <shaders name="shaders">

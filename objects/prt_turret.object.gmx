@@ -37,6 +37,7 @@ recoil = 0;
 coverColor = c_white;
 hasCover = true;
 armored = hasCover;
+resist[1] = -1;
 healthLinked = true;
 </string>
           </argument>

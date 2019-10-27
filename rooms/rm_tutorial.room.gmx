@@ -10,10 +10,7 @@
   <persistent>0</persistent>
   <colour>0</colour>
   <showcolour>-1</showcolour>
-  <code>var ship = obj_redship;
-if (SAVE_MAP[? "Ship"] == 1) var ship = obj_redship;
-if (SAVE_MAP[? "Ship"] == 2) var ship = obj_shooterplayer;
-instance_create(room_width/4, room_height*7/8, ship);
+  <code>placeShip();
 playMusic(mus_spacecircus);</code>
   <enableViews>-1</enableViews>
   <clearViewBackground>-1</clearViewBackground>
