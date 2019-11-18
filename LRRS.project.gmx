@@ -197,6 +197,7 @@
     <sprite>sprites\spr_logbg</sprite>
     <sprite>sprites\spr_planets</sprite>
     <sprite>sprites\spr_yellowglowything</sprite>
+    <sprite>sprites\sprite84</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
@@ -293,6 +294,8 @@
       <script>scripts\processMenuItem.gml</script>
       <script>scripts\reflectAngle.gml</script>
       <script>scripts\placeShip.gml</script>
+      <script>scripts\neg.gml</script>
+      <script>scripts\pos.gml</script>
     </scripts>
   </scripts>
   <shaders name="shaders">
@@ -360,6 +363,8 @@
       <object>objects\obj_redship</object>
       <object>objects\obj_testship</object>
       <object>objects\obj_shooterplayer</object>
+      <object>objects\obj_red</object>
+      <object>objects\obj_wall</object>
     </objects>
     <objects name="Enemies">
       <object>objects\obj_enemytest</object>
@@ -424,6 +429,7 @@
     <object>objects\obj_turrettest</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_platformtest</room>
     <room>rooms\rm_title</room>
     <room>rooms\rm_levelselect</room>
     <room>rooms\rm_introcutscene</room>
