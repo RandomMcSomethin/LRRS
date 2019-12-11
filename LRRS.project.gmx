@@ -140,6 +140,18 @@
       <sprite>sprites\spr_arrows</sprite>
       <sprite>sprites\spr_gamefont</sprite>
     </sprites>
+    <sprites name="Platform Player">
+      <sprite>sprites\spr_red_idle</sprite>
+      <sprite>sprites\spr_redrun</sprite>
+      <sprite>sprites\spr_redrunshoot</sprite>
+      <sprite>sprites\spr_red_fall</sprite>
+      <sprite>sprites\spr_red_fallshoot</sprite>
+      <sprite>sprites\spr_red_jump</sprite>
+      <sprite>sprites\spr_red_jumpshoot</sprite>
+      <sprite>sprites\spr_red_smearshoot</sprite>
+      <sprite>sprites\spr_red_slide</sprite>
+      <sprite>sprites\spr_red_shoot</sprite>
+    </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_enemytest</sprite>
       <sprite>sprites\spr_spiker</sprite>
@@ -159,6 +171,9 @@
       <sprite>sprites\spr_logturret</sprite>
       <sprite>sprites\spr_laserenemy</sprite>
       <sprite>sprites\spr_icicler</sprite>
+    </sprites>
+    <sprites name="Player Weapons">
+      <sprite>sprites\spr_pp</sprite>
     </sprites>
     <sprite>sprites\spr_gitgud</sprite>
     <sprite>sprites\spr_bombhitbox1</sprite>
@@ -183,6 +198,12 @@
     <sprite>sprites\spr_special</sprite>
     <sprite>sprites\spr_logbg</sprite>
     <sprite>sprites\spr_planets</sprite>
+<<<<<<< Updated upstream
+=======
+    <sprite>sprites\spr_yellowglowything</sprite>
+    <sprite>sprites\spr_testtile</sprite>
+    <sprite>sprites\spr_boid</sprite>
+>>>>>>> Stashed changes
   </sprites>
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
@@ -205,6 +226,7 @@
     <scripts name="Entity Handlers">
       <scripts name="Enemy Movement Patterns">
         <script>scripts\enemyMovementDefault.gml</script>
+        <script>scripts\enemyMovementFlock.gml</script>
         <script>scripts\enemyMovementMultiShoot.gml</script>
         <script>scripts\enemyMovementMegabeamer.gml</script>
         <script>scripts\enemyMovementBeam.gml</script>
@@ -339,9 +361,15 @@
       <object>objects\obj_redship</object>
       <object>objects\obj_testship</object>
       <object>objects\obj_shooterplayer</object>
+<<<<<<< Updated upstream
+=======
+      <object>objects\obj_camera</object>
+      <object>objects\obj_mousecamera</object>
+      <object>objects\obj_red</object>
+      <object>objects\obj_wall</object>
+>>>>>>> Stashed changes
     </objects>
     <objects name="Enemies">
-      <object>objects\obj_enemytest</object>
       <object>objects\obj_shooter</object>
       <object>objects\obj_multishooter</object>
       <object>objects\obj_stinger</object>
@@ -355,6 +383,11 @@
       <object>objects\obj_spiker</object>
       <object>objects\obj_laserenemy</object>
       <object>objects\obj_icicler</object>
+      <objects name="Experimental">
+        <object>objects\obj_enemytest</object>
+        <object>objects\obj_enemytestplatformer</object>
+        <object>objects\obj_boid</object>
+      </objects>
     </objects>
     <objects name="Bullets">
       <object>objects\obj_peashooterbullet</object>
@@ -408,6 +441,11 @@
     <room>rooms\rm_level4</room>
     <room>rooms\rm_enemylogs</room>
     <room>rooms\rm_test</room>
+<<<<<<< Updated upstream
+=======
+    <room>rooms\rm_colorblindtest</room>
+    <room>rooms\rm_boidtest</room>
+>>>>>>> Stashed changes
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
