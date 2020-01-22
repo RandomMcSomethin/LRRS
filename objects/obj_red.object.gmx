@@ -177,7 +177,7 @@ if (!shinesparking &amp;&amp; !sliding) {
     if ((l == -1) &amp;&amp; xspeed &gt; -maxxspeed) { xspeed -= maxxspeed/4; }
     if (!r &amp;&amp; l != -1) { xspeed = xspeed/maxxspeed;}
     if (shoot &amp;&amp; shinesparkstored) { shinesparking = true; }
-    image_speed = image_speed*pos(xspeed/5);
+    image_speed = image_speed*abs(xspeed/5);
 }
 
 //Animation/Boosting
@@ -260,7 +260,7 @@ if (place_meeting(x+xspeed,y-1,obj_wall)) {
         sstimer = 0; 
         if (!grounded) shinesparkstored = false;
     }
-    if (!grounded &amp;&amp; !slid &amp;&amp; !place_meeting(x,y + neg(yspeed),obj_wall)) { yspeed -= abs(l+r+xspeed)/2; slid = true; sliding = false; }
+    if (!grounded &amp;&amp; !slid &amp;&amp; !place_meeting(x,y + -abs(yspeed),obj_wall)) { yspeed -= abs(l+r+xspeed)/2; slid = true; sliding = false; }
     if (place_meeting(x+xspeed,y+yspeed,obj_wall)) { xspeed = 0; sliding = false;}
     if (sstimer &gt; 30) { shinesparking = false; shinesparkstored = false; boosted = false; sstimer = 0;}
 }
@@ -325,7 +325,7 @@ if (!grounded) {
     if (yspeed &lt;= 0) sprite_index = jumpspr; image_index = 0; 
     if (yspeed &gt; 0) sprite_index = fallspr; image_index = 0; 
 } 
-    //if (place_meeting(x,y+neg(yspeed) - 1,obj_wall)) { grounded = false; wallsliding = false; slid = false;}
+    //if (place_meeting(x,y+-abs(yspeed) - 1,obj_wall)) { grounded = false; wallsliding = false; slid = false;}
 
 //Shooting
 if (shoot == 1) {

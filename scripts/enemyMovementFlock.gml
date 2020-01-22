@@ -105,5 +105,5 @@ if (boid != noone) { //Check for nearest boid
 }
 
 //---------------Updating movement!
-setDirSpeed(pointDirection, moveFactor);
+//setDirSpeed(pointDirection, moveFactor);
 if (attackTimer > 0) attackTimer += moveFactor;
