@@ -212,12 +212,9 @@
     <sprite>sprites\spr_logbg</sprite>
     <sprite>sprites\spr_planets</sprite>
     <sprite>sprites\spr_yellowglowything</sprite>
-<<<<<<< HEAD
     <sprite>sprites\sprite84</sprite>
-=======
     <sprite>sprites\spr_testtile</sprite>
     <sprite>sprites\spr_boid</sprite>
->>>>>>> wip
   </sprites>
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
@@ -384,11 +381,8 @@
       <object>objects\obj_redship</object>
       <object>objects\obj_testship</object>
       <object>objects\obj_shooterplayer</object>
-<<<<<<< HEAD
-=======
       <object>objects\obj_camera</object>
       <object>objects\obj_mousecamera</object>
->>>>>>> wip
       <object>objects\obj_red</object>
       <object>objects\obj_wall</object>
     </objects>
@@ -459,14 +453,8 @@
     <object>objects\obj_turrettest</object>
   </objects>
   <rooms name="rooms">
-<<<<<<< HEAD
-    <room>rooms\rm_platformtest</room>
     <room>rooms\rm_title</room>
-=======
-    <room>rooms\rm_boidtest</room>
->>>>>>> wip
     <room>rooms\rm_levelselect</room>
-    <room>rooms\rm_title</room>
     <room>rooms\rm_enemylogs</room>
     <room>rooms\rm_introcutscene</room>
     <room>rooms\rm_equiproom</room>
@@ -477,6 +465,8 @@
     <room>rooms\rm_level3</room>
     <room>rooms\rm_level4</room>
     <room>rooms\rm_test</room>
+    <room>rooms\rm_platformtest</room>
+    <room>rooms\rm_boidtest</room>
     <room>rooms\rm_colorblindtest</room>
   </rooms>
   <help>
