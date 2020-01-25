@@ -141,6 +141,18 @@
       <sprite>sprites\spr_gamefont</sprite>
       <sprite>sprites\spr_overlay</sprite>
     </sprites>
+    <sprites name="Platform Player">
+      <sprite>sprites\spr_red_idle</sprite>
+      <sprite>sprites\spr_redrun</sprite>
+      <sprite>sprites\spr_redrunshoot</sprite>
+      <sprite>sprites\spr_red_fall</sprite>
+      <sprite>sprites\spr_red_fallshoot</sprite>
+      <sprite>sprites\spr_red_jump</sprite>
+      <sprite>sprites\spr_red_jumpshoot</sprite>
+      <sprite>sprites\spr_red_smearshoot</sprite>
+      <sprite>sprites\spr_red_slide</sprite>
+      <sprite>sprites\spr_red_shoot</sprite>
+    </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_enemytest</sprite>
       <sprite>sprites\spr_spiker</sprite>
@@ -173,6 +185,9 @@
         <sprite>sprites\spr_laserfiremask</sprite>
       </sprites>
     </sprites>
+    <sprites name="Player Weapons">
+      <sprite>sprites\spr_pp</sprite>
+    </sprites>
     <sprite>sprites\spr_gitgud</sprite>
     <sprite>sprites\spr_bombhitbox1</sprite>
     <sprite>sprites\spr_repairbox</sprite>
@@ -197,7 +212,12 @@
     <sprite>sprites\spr_logbg</sprite>
     <sprite>sprites\spr_planets</sprite>
     <sprite>sprites\spr_yellowglowything</sprite>
+<<<<<<< HEAD
     <sprite>sprites\sprite84</sprite>
+=======
+    <sprite>sprites\spr_testtile</sprite>
+    <sprite>sprites\spr_boid</sprite>
+>>>>>>> wip
   </sprites>
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
@@ -221,6 +241,7 @@
     <scripts name="Entity Handlers">
       <scripts name="Enemy Movement Patterns">
         <script>scripts\enemyMovementDefault.gml</script>
+        <script>scripts\enemyMovementFlock.gml</script>
         <script>scripts\enemyMovementMultiShoot.gml</script>
         <script>scripts\enemyMovementMegabeamer.gml</script>
         <script>scripts\enemyMovementBeam.gml</script>
@@ -363,11 +384,15 @@
       <object>objects\obj_redship</object>
       <object>objects\obj_testship</object>
       <object>objects\obj_shooterplayer</object>
+<<<<<<< HEAD
+=======
+      <object>objects\obj_camera</object>
+      <object>objects\obj_mousecamera</object>
+>>>>>>> wip
       <object>objects\obj_red</object>
       <object>objects\obj_wall</object>
     </objects>
     <objects name="Enemies">
-      <object>objects\obj_enemytest</object>
       <object>objects\obj_shooter</object>
       <object>objects\obj_multishooter</object>
       <object>objects\obj_stinger</object>
@@ -383,6 +408,11 @@
       <object>objects\obj_splitspiker</object>
       <object>objects\obj_laserenemy</object>
       <object>objects\obj_icicler</object>
+      <objects name="Experimental">
+        <object>objects\obj_enemytest</object>
+        <object>objects\obj_enemytestplatformer</object>
+        <object>objects\obj_boid</object>
+      </objects>
     </objects>
     <objects name="Bullets">
       <object>objects\obj_peashooterbullet</object>
@@ -429,9 +459,15 @@
     <object>objects\obj_turrettest</object>
   </objects>
   <rooms name="rooms">
+<<<<<<< HEAD
     <room>rooms\rm_platformtest</room>
     <room>rooms\rm_title</room>
+=======
+    <room>rooms\rm_boidtest</room>
+>>>>>>> wip
     <room>rooms\rm_levelselect</room>
+    <room>rooms\rm_title</room>
+    <room>rooms\rm_enemylogs</room>
     <room>rooms\rm_introcutscene</room>
     <room>rooms\rm_equiproom</room>
     <room>rooms\rm_shop</room>
@@ -440,7 +476,6 @@
     <room>rooms\rm_level2</room>
     <room>rooms\rm_level3</room>
     <room>rooms\rm_level4</room>
-    <room>rooms\rm_enemylogs</room>
     <room>rooms\rm_test</room>
     <room>rooms\rm_colorblindtest</room>
   </rooms>

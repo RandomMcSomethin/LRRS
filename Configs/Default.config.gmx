@@ -678,7 +678,12 @@
     <option_xbone_title_id></option_xbone_title_id>
   </Options>
   <ConfigConstants>
+<<<<<<< HEAD
     <constants number="42">
+=======
+    <constants number="43">
+      <constant name="TRUE_ROOM_WIDTH">room_width/2</constant>
+>>>>>>> wip
       <constant name="COLOR_SPLIT">$66FF22</constant>
       <constant name="COLOR_GREEN">$00FF00</constant>
       <constant name="COLOR_FIRE">$3333FF</constant>
