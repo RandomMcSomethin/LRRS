@@ -56,10 +56,17 @@ camAccel = 1;
 } else { player = noone; }
 
 if (x &lt; player.x || x &gt; player.x) {
-    xspeed = (player.x - x)/10
+    xspeed = ((player.x + player.shoot*20*player.image_xscale) - x)/10
 }
 if (y &lt; player.y || y &gt; player.y) {
     yspeed = (player.y - y)/10
+}
+
+if (MANAGER.sSTimer &gt; 0) {
+    if (MANAGER.sSTimer mod 2 == 0) {
+        obj_camera.xspeed += random_range(-1, 1)*MANAGER.intensity;
+        obj_camera.yspeed += random_range(-1, 1)*MANAGER.intensity;
+    }
 }
 
 x += xspeed;

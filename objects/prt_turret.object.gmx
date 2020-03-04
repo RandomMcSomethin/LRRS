@@ -152,7 +152,8 @@ if (healthLinked &amp;&amp; !instance_exists(parent)) instance_destroy();
           <argument>
             <kind>1</kind>
             <string>if (!hasCover) { color = statFX(); }
-if (hasCover) { coverColor = statFX(); }
+if (hasCover) { coverColor = statFX(); 
+                color = c_white; }
 image_blend = color;
 draw_sprite_ext(turret, 2, x - lengthdir_x(recoil, angle + pointDirection), y - lengthdir_y(recoil, angle + pointDirection), image_xscale, image_yscale, angle + pointDirection, color, image_alpha);
 draw_sprite_ext(turret, 0, x, y, image_xscale, image_yscale, pointDirection, color, image_alpha);

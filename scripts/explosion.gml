@@ -56,6 +56,6 @@ part_emitter_region(Sname,emitter1,X - 20,X + 20,Y - 20,Y + 20,ps_shape_ellipse,
 part_emitter_burst(Sname,emitter1,pt_cloud1,7);
 
 part_emitter_destroy(SNAME, emitter1);
-screenShake(10, 0.3);
+screenShake(10, 2);
 
 

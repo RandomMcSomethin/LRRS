@@ -47,6 +47,7 @@ textcache = "This message shouldn't appear.  ";
 didyoudothething = false;
 fading = false;
 fadetime = 255;
+healthbarSize = 101;
 items = 0;
 maxitems = 8;
 full = false;
@@ -78,12 +79,13 @@ sliding = false;
 slidetimer = -1;
 maxslidetimer = 15;
 timer = 0;
+footAngle = 270;
 
 shoottimer = 0;
 maxshoottimer = 2;
-firerate = 12;
+firerate = 5;
 weaponspr = spr_pp;
-bulletlimit = 3;
+bulletlimit = 5;
 bullet = obj_peashooterbullet;
 
 camera = instance_create(x, y, obj_camera);
@@ -98,7 +100,12 @@ jumpshootspr = spr_red_jumpshoot;
 fallshootspr = spr_red_fallshoot;
 runshootspr = spr_redrunshoot;
 wallslidespr = spr_red_slide;
+hurtspr = spr_red_hurt;
+deadspr = spr_red_dead;
 framenum = 0;
+runFrame[0] = 0;
+runFrame[1] = 3;
+runAlt = 0;
 image_speed = 60/13;
 
 speedBooster = false;
@@ -308,8 +315,9 @@ if(!shinesparking &amp;&amp; j == 1 &amp;&amp; (slidetimer &gt;= 5 || slidetimer
     sprite_index = jumpspr; image_index = 0; }
 }
 
+//Walljump
 if (!shinesparking &amp;&amp; j == 1 &amp;&amp; (slidetimer &gt;= 5 || slidetimer == -1) &amp;&amp; (grounded == true || slid == true) &amp;&amp; wallsliding) {
-    yspeed = -7;
+    yspeed = -10;
     grav = 0;
     if (slidetimer &gt;= 5) { xspeed = 8*image_xscale;
     sprite_index = jumpspr; image_index = 0; }
@@ -328,7 +336,7 @@ if (!grounded) {
     //if (place_meeting(x,y+-abs(yspeed) - 1,obj_wall)) { grounded = false; wallsliding = false; slid = false;}
 
 //Shooting
-if (shoot == 1) {
+if (shoot == 1 &amp;&amp; !boosted &amp;&amp; !sliding) {
     if (instance_number(bullet) &lt; bulletlimit) 
         { shoottimer++; }
     else {
@@ -341,10 +349,12 @@ if (shoot == 1) {
     } else {
         if (shoottimer mod firerate == 0) {
             event_user(EV_SHOOT);
+            framenum = 1;
+            screenShake(5, 1);
         }
-        if (shoottimer mod (firerate - 5) == 0) {
+        if (shoottimer mod (firerate - 2) == 0) {
             framenum = 0;
-        };
+        }
         if !((r == 1 &amp;&amp; l != -1) || (r != 1 &amp;&amp; l == -1)) {
             image_index = framenum;
             sprite_index = shootspr;
@@ -421,6 +431,12 @@ if (shoot == 1) {
 */
 
 if (y &gt; room_height &amp;&amp; !hollered) { audio_play_sound(snd_goofyholler, 11, 0); hollered = true; }
+footAngle -= xspeed*1.2;
+
+//Hurt
+if (iF &gt; 60) {
+    sprite_index = hurtspr;
+}
 </string>
           </argument>
         </arguments>
@@ -445,7 +461,7 @@ if (y &gt; room_height &amp;&amp; !hollered) { audio_play_sound(snd_goofyholler,
             <kind>1</kind>
             <string>///Shoot event
 framenum = 1;
-playSFX(snd_pew5);
+playSFX(snd_handgun);
 
 //Placeholder
 var p_peashooter = part_type_create(); 
@@ -464,9 +480,41 @@ if (wallsliding &amp;&amp; !grounded) image_xscale = -image_xscale;
 b = instance_create(x + (sprite_width*0.3) - framenum*image_xscale + sprite_get_width(weaponspr)*image_xscale, y, bullet);
 b.yspeed = 0;
 b.xspeed = 10*image_xscale;
+b.lifeTime = 20;
 part_particles_create(SNAME, x + (sprite_width*0.3) - framenum*image_xscale + sprite_get_width(weaponspr)*image_xscale, y, p_peashooter, 3);
 part_particles_create(SNAME, x + (sprite_width*0.3) - framenum*image_xscale + sprite_get_width(weaponspr)*image_xscale, y, p_flare, 1);
 if (wallsliding &amp;&amp; !grounded) image_xscale = -image_xscale;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (hp &lt;= 0) {
+    instance_destroy();
+}
+iFrames = 120; //Hardcoding this because reasons
+iF = iFrames;
+xspeed += -image_xscale*7;
+yspeed -= 2;
+collidedEntity = noone;
+playSFX(snd_hit);
 </string>
           </argument>
         </arguments>
@@ -509,15 +557,12 @@ if (full == true) {
 if (fading == true) {
     fadetime -= 255/180;
 }
-for(i = 0; i &lt; maxitems; i += 1) {
-    draw_sprite(spr_logbg, 0, 24+(i*64), 32);
-    if (global.inventory[i] != -1) {
-        draw_sprite(spr_selector, global.inventory[i], x1+48+(i*64), 64);
-    }
-    if (i == currentslot) {
-        draw_sprite(spr_logbg, 0, 24+(i*64), 32);
-    }
-}
+
+//Healthbar
+draw_rectangle_colour(view_wview[0]/7 + sprite_get_width(spr_redhpicon)/2.2, sprite_get_height(spr_redhpicon)*1.2, (hp/maxhp)*healthbarSize + view_wview[0]/7 + sprite_get_height(spr_redhpicon)/2.2, 10 + sprite_get_height(spr_redhpicon)*1.2, c_red, c_red, c_red, c_red, false);
+draw_sprite(spr_redhpbar, -1, view_wview[0]/7 + sprite_get_width(spr_redhpicon)/2.2, sprite_get_height(spr_redhpbar)*1.2 + 10);
+draw_sprite(spr_redhpicon, -1, view_wview[0]/7, sprite_get_height(spr_redhpicon)*1.2);
+
 if (fadetime &lt;= 0) { 
     full = false;
     fading = false;
@@ -561,8 +606,8 @@ if (useitem == 0) {
             <string>event_inherited();
 
 draw_set_color(c_black);
-//draw_text(x, y - sprite_height*2, image_index);
-//draw_text(x, y - sprite_height*3, sprite_get_name(sprite_index)); 
+draw_text(x, y - sprite_height*2, iF);
+draw_text(x, y - sprite_height*3, sprite_get_name(sprite_index)); 
 //draw_text(x, y - sprite_height*4, shinesparking);
 //draw_text(x, y - sprite_height*3, ssdir);
 //draw_text(x, y - sprite_height*2, sstimer);
@@ -583,6 +628,14 @@ if (boosted || shinesparking || sliding) {
         part_particles_create(SNAME, x, y, sspart, 1);
     }
 }
+
+//feet
+/*
+draw_line(x, y, x + lengthdir_x(sprite_height/2, footAngle - 270), y + lengthdir_y(sprite_height/2, footAngle - 270));
+draw_line(x, y, x + lengthdir_x(sprite_height/2, footAngle - 180), y + lengthdir_y(sprite_height/2, footAngle - 180));
+draw_line(x, y, x + lengthdir_x(sprite_height/2, footAngle - 90), y + lengthdir_y(sprite_height/2, footAngle - 90));
+draw_line(x, y, x + lengthdir_x(sprite_height/2, footAngle), y + lengthdir_y(sprite_height/2, footAngle));
+*/
 </string>
           </argument>
         </arguments>

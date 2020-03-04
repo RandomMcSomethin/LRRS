@@ -97,6 +97,9 @@
     <sound>sound\snd_winterchill</sound>
     <sound>sound\snd_zunwaves</sound>
     <sound>sound\snd_zunwavesrereremixed</sound>
+    <sounds name="Gun Sounds">
+      <sound>sound\snd_handgun</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_selector</sprite>
@@ -140,6 +143,8 @@
       <sprite>sprites\spr_arrows</sprite>
       <sprite>sprites\spr_gamefont</sprite>
       <sprite>sprites\spr_overlay</sprite>
+      <sprite>sprites\spr_redhpicon</sprite>
+      <sprite>sprites\spr_redhpbar</sprite>
     </sprites>
     <sprites name="Platform Player">
       <sprite>sprites\spr_red_idle</sprite>
@@ -152,6 +157,8 @@
       <sprite>sprites\spr_red_smearshoot</sprite>
       <sprite>sprites\spr_red_slide</sprite>
       <sprite>sprites\spr_red_shoot</sprite>
+      <sprite>sprites\spr_red_hurt</sprite>
+      <sprite>sprites\spr_red_dead</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_enemytest</sprite>
@@ -453,6 +460,7 @@
     <object>objects\obj_turrettest</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_platformtest</room>
     <room>rooms\rm_title</room>
     <room>rooms\rm_levelselect</room>
     <room>rooms\rm_enemylogs</room>
@@ -465,7 +473,6 @@
     <room>rooms\rm_level3</room>
     <room>rooms\rm_level4</room>
     <room>rooms\rm_test</room>
-    <room>rooms\rm_platformtest</room>
     <room>rooms\rm_boidtest</room>
     <room>rooms\rm_colorblindtest</room>
   </rooms>
