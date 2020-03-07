@@ -100,6 +100,7 @@
     <sounds name="Gun Sounds">
       <sound>sound\snd_handgun</sound>
     </sounds>
+    <sound>sound\snd_whoosh</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_selector</sprite>
@@ -191,6 +192,12 @@
         <sprite>sprites\spr_spikermask</sprite>
         <sprite>sprites\spr_laserfiremask</sprite>
       </sprites>
+      <sprites name="Platform Enemies">
+        <sprite>sprites\spr_ar496_idle</sprite>
+        <sprite>sprites\spr_ar496_walk</sprite>
+        <sprite>sprites\spr_ar496_aimf</sprite>
+        <sprite>sprites\spr_ar496_aimu</sprite>
+      </sprites>
     </sprites>
     <sprites name="Player Weapons">
       <sprite>sprites\spr_pp</sprite>
@@ -222,6 +229,7 @@
     <sprite>sprites\sprite84</sprite>
     <sprite>sprites\spr_testtile</sprite>
     <sprite>sprites\spr_boid</sprite>
+    <sprite>sprites\spr_ohno</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_spaceselect</background>
@@ -254,6 +262,9 @@
         <script>scripts\enemyMovementPoint.gml</script>
         <script>scripts\enemyMovementHover.gml</script>
         <script>scripts\enemyMovementLaser.gml</script>
+        <scripts name="Platform">
+          <script>scripts\enemyMovementBackAndForth.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Weapon Scripts">
         <script>scripts\peashooterFire.gml</script>
@@ -272,6 +283,7 @@
       <script>scripts\drawStun.gml</script>
       <script>scripts\statFX.gml</script>
       <script>scripts\grazeBonus.gml</script>
+      <script>scripts\platPhysics.gml</script>
     </scripts>
     <scripts name="Misc.">
       <script>scripts\drawLogs.gml</script>
@@ -341,8 +353,8 @@
       <object>objects\prt_cutscene</object>
       <object>objects\prt_roomtransition</object>
       <object>objects\prt_entity</object>
-      <object>objects\prt_player</object>
-      <object>objects\prt_enemy</object>
+      <object>objects\prt_ship</object>
+      <object>objects\prt_shipenemy</object>
       <object>objects\prt_boss</object>
       <object>objects\prt_turret</object>
       <object>objects\prt_bullet</object>
@@ -355,6 +367,8 @@
       <object>objects\prt_card</object>
       <object>objects\prt_level</object>
       <object>objects\prt_logbutton</object>
+      <object>objects\prt_player</object>
+      <object>objects\prt_enemy</object>
     </objects>
     <object>objects\obj_title</object>
     <objects name="Menus">
@@ -413,6 +427,9 @@
         <object>objects\obj_enemytest</object>
         <object>objects\obj_enemytestplatformer</object>
         <object>objects\obj_boid</object>
+      </objects>
+      <objects name="Platform">
+        <object>objects\obj_ar496</object>
       </objects>
     </objects>
     <objects name="Bullets">

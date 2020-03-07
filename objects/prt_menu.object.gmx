@@ -225,30 +225,30 @@ menuState = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>display_set_gui_size(room_width, room_height);
+            <string>display_set_gui_size(view_wview[0], view_hview[0]);
 draw_set_alpha(1);
 draw_set_color(c_white);
-draw_rectangle(menuPos, 0, room_width, room_height, true);
+draw_rectangle(menuPos, 0, view_wview[0], view_hview[0], true);
 draw_set_alpha(0.75);
 draw_set_color(c_black);
-draw_rectangle(menuPos, 0, room_width, room_height, false);
+draw_rectangle(menuPos, 0, view_wview[0], view_hview[0], false);
 draw_set_alpha(1);
 draw_set_color(c_white);
 if (opened) {
     for (i = 0; i &lt; 8; i++) {
         if (menuItem[i] != -1) {
             draw_set_font(font_gamefont);
-            draw_text(room_width/1.8, room_height/10 + room_height/10*i, menuItem[i]);
+            draw_text(view_wview[0]/1.8, view_hview[0]/10 + view_hview[0]/10*i, menuItem[i]);
         }
         if (menuItem[i] == -1) {
             draw_set_color(c_gray);
             draw_set_font(font_gamefont);
-            draw_text(room_width/1.8, room_height/10 + room_height/10*i, "---");
+            draw_text(view_wview[0]/1.8, view_hview[0]/10 + view_hview[0]/10*i, "---");
             draw_set_color(c_white);
         }
     }
     var arrowSprite = spr_selector;
-draw_sprite_ext(arrowSprite, 0, room_width/2 + sprite_get_width(arrowSprite)*1.4, room_height/10 + room_height/10*selected + sprite_get_height(arrowSprite)*0.4, 1, 1, 270, c_white, 1);
+draw_sprite_ext(arrowSprite, 0, view_wview[0]/2 + sprite_get_width(arrowSprite)*1.4, view_hview[0]/10 + view_hview[0]/10*selected + sprite_get_height(arrowSprite)*0.4, 1, 1, 270, c_white, 1);
 }
 </string>
           </argument>

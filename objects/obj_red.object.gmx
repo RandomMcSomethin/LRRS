@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>prt_entity</parentName>
+  <parentName>prt_player</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -109,6 +109,9 @@ runAlt = 0;
 image_speed = 60/13;
 
 speedBooster = false;
+explodes = false;
+deathAnim = false;
+attackTimer = 0;
 </string>
           </argument>
         </arguments>
@@ -133,6 +136,7 @@ speedBooster = false;
             <kind>1</kind>
             <string>event_inherited();
 part_type_sprite(sspart, sprite_index, image_index, 0, 0);
+if (PAUSED) exit;
 
 //Inventory
 r = keyboard_check(vk_right);
@@ -153,108 +157,245 @@ six = keyboard_check(ord("6"));
 seven = keyboard_check(ord("7"));
 eight = keyboard_check(ord("8"));
 
-//Jumps and Gravity
-normalmaxgrav = 9.8;
-maxgrav = normalmaxgrav;
-if (!j2) { jumptimer = maxjumptimer;}
-if (!boosted &amp;&amp; !sliding) {
-    if (grounded) { maxxspeed = 4.0; jumptimer = 0;}
-    else { maxxspeed = 2.0; }
-}
-g = maxgrav/20;
-
-//Speed booster/shinespark
-part_type_scale(sspart, image_xscale, 1);
-image_speed = 15/60;
-if (s == 1) { maxxspeed = 5.0; }
-
-//Why is this here? 
-background_x[0] = lerp(-50, room_width - background_width[0] + 50, view_xview[0]/(room_width-view_wview[0]))/2;
-background_y[0] = lerp(-50, room_height - background_height[0] + 50, view_yview[0]/(room_height-view_hview[0]))/2;
-timer++; 
-
-//Boosting/Shinesparking
-if (speedBooster) { //Player *must* have the Speed Booster for this to work!  
-    if (maxruntimer == runtimer) { boosted = true; } else { boosted = false; }
-    if (ss &amp;&amp; boosted) shinesparkstored = true;
-    if (boosted) { maxxspeed = 8.0; }
-}
-if (!shinesparking &amp;&amp; !sliding) {
-    if (r &amp;&amp; xspeed &lt; maxxspeed) { xspeed += maxxspeed/4; }
-    if ((l == -1) &amp;&amp; xspeed &gt; -maxxspeed) { xspeed -= maxxspeed/4; }
-    if (!r &amp;&amp; l != -1) { xspeed = xspeed/maxxspeed;}
-    if (shoot &amp;&amp; shinesparkstored) { shinesparking = true; }
-    image_speed = image_speed*abs(xspeed/5);
-}
-
-//Animation/Boosting
-if (!shinesparking) {
-if (r == 1 &amp;&amp; l != -1) {
-    if (shoot == 0) {
-        if(sprite_index != runspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runspr;}
+if (!deathAnim) {
+    //Jumps and Gravity
+    normalmaxgrav = 9.8;
+    maxgrav = normalmaxgrav;
+    if (!j2) { jumptimer = maxjumptimer;}
+    if (!boosted &amp;&amp; !sliding) {
+        if (grounded) { maxxspeed = 4.0; jumptimer = 0;}
+        else { maxxspeed = 2.0; }
+    }
+    g = maxgrav/20;
+    
+    //Speed booster/shinespark
+    part_type_scale(sspart, image_xscale, 1);
+    image_speed = 15/60;
+    if (s == 1) { maxxspeed = 5.0; }
+    
+    //Why is this here? 
+    background_x[0] = lerp(-50, room_width - background_width[0] + 50, view_xview[0]/(room_width-view_wview[0]))/2;
+    background_y[0] = lerp(-50, room_height - background_height[0] + 50, view_yview[0]/(room_height-view_hview[0]))/2;
+    timer++; 
+    
+    //Boosting/Shinesparking
+    if (speedBooster) { //Player *must* have the Speed Booster for this to work!  
+        if (maxruntimer == runtimer) { boosted = true; } else { boosted = false; }
+        if (ss &amp;&amp; boosted) shinesparkstored = true;
+        if (boosted) { maxxspeed = 8.0; }
+    }
+    if (!shinesparking &amp;&amp; !sliding) {
+        if (r &amp;&amp; xspeed &lt; maxxspeed) { xspeed += maxxspeed/4; }
+        if ((l == -1) &amp;&amp; xspeed &gt; -maxxspeed) { xspeed -= maxxspeed/4; }
+        if (!r &amp;&amp; l != -1) { xspeed = xspeed/maxxspeed;}
+        if (shoot &amp;&amp; shinesparkstored) { shinesparking = true; }
+        image_speed = image_speed*abs(xspeed/5);
+    }
+    
+    //Animation/Boosting
+    if (!shinesparking) {
+    if (r == 1 &amp;&amp; l != -1) {
+        if (shoot == 0) {
+            if(sprite_index != runspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runspr;}
+        } else {
+            if(sprite_index != runshootspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runshootspr;}
+        }
+        image_xscale = 1;
+        if (s == 1) { image_speed = 2/6; }
+        if (runtimer &lt; maxruntimer &amp;&amp; grounded &amp;&amp; !(place_meeting(x+xspeed,y - 1,obj_wall))) runtimer++;
+    }
+    else if (l == -1 &amp;&amp; r != 1) {
+        if (shoot == 0) {
+            if(sprite_index != runspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runspr;}
+        } else {
+            if(sprite_index != runshootspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runshootspr;}
+        }
+        image_xscale = -1;
+        if (s == 1) { image_speed = 2/6; }
+        if (runtimer &lt; maxruntimer &amp;&amp; grounded &amp;&amp; !(place_meeting(x+xspeed,y - 1,obj_wall))) runtimer++;
+    }
+    else {
+        if (!boosted &amp;&amp; grounded) sprite_index = idlespr; image_index = 0;
+        if (!shinesparkstored) runtimer = 0;
+    }
+    if (grounded &amp;&amp; slidetimer == -1 &amp;&amp; ss &amp;&amp; j) {
+        sliding = true;
+        playSFX(snd_whoosh);
+    }
+    if (sliding) {
+        slidetimer++;
+        sprite_index = runspr; image_index = 0;
+        xspeed = maxxspeed*2*image_xscale;
+    }
+    if (!sliding) {
+        slidetimer = -1;
+    }
+    if (slidetimer == maxslidetimer) {
+        sliding = false;
+        if (grounded) xspeed = maxxspeed*image_xscale;
+        slidetimer = -1;
+    }
     } else {
-        if(sprite_index != runshootspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runshootspr;}
+        sstimer++;
+        if (sstimer &lt; 30) { yspeed = -0.5; 
+        sprite_index = jumpspr; image_index = 0;
+        ssdir = 0;
+        if (u) { ssdir = 0; } 
+        if (r) { ssdir = 2; }
+        if (ss) { ssdir = 4; }
+        if (l == -1) { ssdir = 6; }
+        if (u &amp;&amp; r) { ssdir = 1; }
+        if (r &amp;&amp; ss) { ssdir = 3; }
+        if (ss &amp;&amp; l) { ssdir = 5; }
+        if (l == -1 &amp;&amp; u) { ssdir = 7; }
+        }
+        if (sstimer == 30) { yspeed = 0; }
+        if (sstimer &gt; 30) { 
+        if (ssdir == 0) { yspeed = -16; }
+        if (ssdir == 1) { yspeed = -16;  xspeed = 16; }
+        if (ssdir == 2) { xspeed = 16; }
+        if (ssdir == 3) { yspeed = 16;   xspeed = 16; }
+        if (ssdir == 4) { yspeed = 16; }
+        if (ssdir == 5) { yspeed = 16;  xspeed = -16; }
+        if (ssdir == 6) { xspeed = -16; }
+        if (ssdir == 7)  { yspeed = -16;  xspeed = -16; }
+        }
+        if (sstimer == maxsstimer) { shinesparking = false; sstimer = 0; }
     }
-    image_xscale = 1;
-    if (s == 1) { image_speed = 2/6; }
-    if (runtimer &lt; maxruntimer &amp;&amp; grounded &amp;&amp; !(place_meeting(x+xspeed,y - 1,obj_wall))) runtimer++;
-}
-else if (l == -1 &amp;&amp; r != 1) {
-    if (shoot == 0) {
-        if(sprite_index != runspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runspr;}
+
+    //Jumping
+    if(!ss &amp;&amp; !shinesparking &amp;&amp; j == 1 &amp;&amp; (slidetimer &gt;= 5 || slidetimer == -1) &amp;&amp; (grounded || slid) &amp;&amp; !place_meeting(x,y - sprite_height/2 + yspeed,obj_wall)) {
+            if (!shinesparkstored) runtimer = 0;
+            if (!slid) yspeed = -10;
+            audio_play_sound(snd_pew, 1, 0);
+        if (slid &amp;&amp; !grounded &amp;&amp; !boosted) { xspeed -= (l+r)*maxxspeed*2; }
+        if (slidetimer &gt;= 5) { xspeed = 8*image_xscale;
+        sprite_index = jumpspr; image_index = 0; }
+    }
+    
+    //Walljump
+    if (!ss &amp;&amp; !shinesparking &amp;&amp; j == 1 &amp;&amp; (slidetimer &gt;= 5 || slidetimer == -1) &amp;&amp; (grounded == true || slid == true) &amp;&amp; wallsliding) {
+        yspeed = -7;
+        grav = 0;
+        if (slidetimer &gt;= 5) { xspeed = 8*image_xscale;
+        sprite_index = jumpspr; image_index = 0; }
+    }
+    
+    
+    if (!sliding &amp;&amp; j2 == 1 &amp;&amp; jumptimer &lt; maxjumptimer) {
+        jumptimer++;
+        if (yspeed &gt; -5 &amp;&amp; !place_meeting(x, y - 1 - yspeed, obj_wall)) yspeed = -5;
+    }
+    
+    if (!grounded) { 
+        if (yspeed &lt;= 0) sprite_index = jumpspr; image_index = 0; 
+        if (yspeed &gt; 0) sprite_index = fallspr; image_index = 0; 
+    } 
+        //if (place_meeting(x,y+-abs(yspeed) - 1,obj_wall)) { grounded = false; wallsliding = false; slid = false;}
+    
+    //Shooting
+    if (shoot == 1 &amp;&amp; !boosted &amp;&amp; !sliding) {
+        if (instance_number(bullet) &lt; bulletlimit) 
+            { shoottimer++; }
+        else {
+            shoottimer = 1;
+        }
+        if (shoottimer &lt; 0) {
+            if (xspeed == 0) {
+                sprite_index = smearspr; framenum = 0;
+            }
+        } else {
+            if (shoottimer mod firerate == 0) {
+                event_user(EV_SHOOT);
+                framenum = 1;
+                screenShake(5, 1);
+            }
+            if (shoottimer mod (firerate - 2) == 0) {
+                framenum = 0;
+            }
+            if !((r == 1 &amp;&amp; l != -1) || (r != 1 &amp;&amp; l == -1)) {
+                image_index = framenum;
+                sprite_index = shootspr;
+            }
+            
+            if (!grounded) { 
+                if (yspeed &lt;= 0) sprite_index = jumpshootspr; //image_index = 0; 
+                if (yspeed &gt; 0) sprite_index = fallshootspr; //image_index = 0; 
+            } 
+        }
     } else {
-        if(sprite_index != runshootspr &amp;&amp; !boosted &amp;&amp; !sliding &amp;&amp; grounded) { sprite_index = runshootspr;}
+        framenum = 0;
+        shoottimer = -maxshoottimer;
     }
-    image_xscale = -1;
-    if (s == 1) { image_speed = 2/6; }
-    if (runtimer &lt; maxruntimer &amp;&amp; grounded &amp;&amp; !(place_meeting(x+xspeed,y - 1,obj_wall))) runtimer++;
-}
-else {
-    if (!boosted &amp;&amp; grounded) sprite_index = idlespr; image_index = 0;
-    if (!shinesparkstored) runtimer = 0;
-}
-if (grounded &amp;&amp; slidetimer == -1 &amp;&amp; ss &amp;&amp; j) {
-    sliding = true;
-}
-if (sliding) {
-    slidetimer++;
-    sprite_index = runspr; image_index = 0;
-    xspeed = maxxspeed*2*image_xscale;
-}
-if (!sliding) {
-    slidetimer = -1;
-}
-if (slidetimer == maxslidetimer) {
-    sliding = false;
-    if (grounded) xspeed = maxxspeed*image_xscale;
-    slidetimer = -1;
-}
-} else {
-    sstimer++;
-    if (sstimer &lt; 30) { yspeed = -0.5; 
-    sprite_index = jumpspr; image_index = 0;
-    ssdir = 0;
-    if (u) { ssdir = 0; } 
-    if (r) { ssdir = 2; }
-    if (ss) { ssdir = 4; }
-    if (l == -1) { ssdir = 6; }
-    if (u &amp;&amp; r) { ssdir = 1; }
-    if (r &amp;&amp; ss) { ssdir = 3; }
-    if (ss &amp;&amp; l) { ssdir = 5; }
-    if (l == -1 &amp;&amp; u) { ssdir = 7; }
+    
+    if (wallsliding &amp;&amp; !grounded) {
+        sprite_index = wallslidespr;
     }
-    if (sstimer == 30) { yspeed = 0; }
-    if (sstimer &gt; 30) { 
-    if (ssdir == 0) { yspeed = -16; }
-    if (ssdir == 1) { yspeed = -16;  xspeed = 16; }
-    if (ssdir == 2) { xspeed = 16; }
-    if (ssdir == 3) { yspeed = 16;   xspeed = 16; }
-    if (ssdir == 4) { yspeed = 16; }
-    if (ssdir == 5) { yspeed = 16;  xspeed = -16; }
-    if (ssdir == 6) { xspeed = -16; }
-    if (ssdir == 7)  { yspeed = -16;  xspeed = -16; }
+    
+    //Inventory system
+    if(collecting == true) {
+        if (items &lt; maxitems) {
+            global.inventory[currentemptyslot] = collecteditem;
+            didyoudothething = true;
+            collecting = false; 
+            items += 1;
+        }
+        else {
+            full = true;
+            collecting = false;
+        }
     }
-    if (sstimer == maxsstimer) { shinesparking = false; sstimer = 0; }
+    for(i = 0; i &lt; maxitems; i += 1) {
+        j -= 1
+        if (global.inventory[i] == -1) {
+            currentemptyslot = i;
+        }
+    }
+    j = maxitems;
+    
+    if (one == 1) {
+        currentslot = 0;
+    }
+    if (two == 1) {
+        currentslot = 1;
+    }
+    if (three == 1) {
+        currentslot = 2;
+    }
+    if (four == 1) {
+        currentslot = 3;
+    }
+    if (five == 1) {
+        currentslot = 4;
+    }
+    if (six == 1) {
+        currentslot = 5;
+    }
+    if (seven == 1) {
+        currentslot = 6;
+    }
+    if (eight == 1) {
+        currentslot = 7;
+    }
+    
+    /*
+    if (shoot == 1) {
+        if (global.inventory[currentslot] != -1) {
+            useitem = collecteditem;
+            global.inventory[currentslot] = -1;
+            items -= 1;
+        }
+    }
+    */
+
+}
+
+if (y &gt; room_height &amp;&amp; !hollered) { audio_play_sound(snd_goofyholler, 11, 0); hollered = true; }
+footAngle -= xspeed*1.2;
+
+//Hurt
+if (iF &gt; 30 &amp;&amp; !grounded) {
+    sprite_index = hurtspr;
 }
 
 //Collision
@@ -268,7 +409,8 @@ if (place_meeting(x+xspeed,y-1,obj_wall)) {
         if (!grounded) shinesparkstored = false;
     }
     if (!grounded &amp;&amp; !slid &amp;&amp; !place_meeting(x,y + -abs(yspeed),obj_wall)) { yspeed -= abs(l+r+xspeed)/2; slid = true; sliding = false; }
-    if (place_meeting(x+xspeed,y+yspeed,obj_wall)) { xspeed = 0; sliding = false;}
+    //if (place_meeting(x+xspeed,y+yspeed,obj_wall)) { xspeed = 0; sliding = false;}
+    xspeed = 0;
     if (sstimer &gt; 30) { shinesparking = false; shinesparkstored = false; boosted = false; sstimer = 0;}
 }
 if (place_meeting(x+l+r,y,obj_wall)) { wallsliding = true; slid = true;}
@@ -277,13 +419,12 @@ else { wallsliding = false; slid = false;}
 if (place_meeting(x,y - sprite_height/2 + yspeed,obj_wall) &amp;&amp; yspeed &lt; 0) { wallsliding = false; slid = false;}
 
 grounded = false;
-if (place_meeting(x, y + 1 + yspeed, obj_wall) &amp;&amp; yspeed &gt;= 0) {
+if (place_meeting(x, y + 1 + yspeed, obj_wall) &amp;&amp; yspeed &gt; -1) {
         grounded = true; 
 }
 
 //To prevent diagonal getting-stuck-ness
-if (place_meeting(x + xspeed, y - 1 + yspeed, obj_wall) &amp;&amp; yspeed &lt;= 0) {
-    xspeed = 0;
+if (place_meeting(x, y - 1 + yspeed, obj_wall)) {
     if (sstimer &gt; 30) { shinesparking = false; sstimer = 0; shinesparkstored = false; boosted = false; }
     yspeed = 0;
     jumptimer = maxjumptimer;
@@ -303,139 +444,6 @@ if (place_meeting(x,y+yspeed,obj_wall)) {
             yspeed += g;    
         }
     }
-}
-
-//Jumping
-if(!shinesparking &amp;&amp; j == 1 &amp;&amp; (slidetimer &gt;= 5 || slidetimer == -1) &amp;&amp; (grounded || slid) &amp;&amp; !place_meeting(x,y - sprite_height/2 + yspeed,obj_wall)) {
-        if (!shinesparkstored) runtimer = 0;
-        if (!slid) yspeed = -10;
-        audio_play_sound(snd_pew, 1, 0);
-    if (slid &amp;&amp; !grounded &amp;&amp; !boosted) { xspeed -= (l+r)*maxxspeed*2; }
-    if (slidetimer &gt;= 5) { xspeed = 8*image_xscale;
-    sprite_index = jumpspr; image_index = 0; }
-}
-
-//Walljump
-if (!shinesparking &amp;&amp; j == 1 &amp;&amp; (slidetimer &gt;= 5 || slidetimer == -1) &amp;&amp; (grounded == true || slid == true) &amp;&amp; wallsliding) {
-    yspeed = -10;
-    grav = 0;
-    if (slidetimer &gt;= 5) { xspeed = 8*image_xscale;
-    sprite_index = jumpspr; image_index = 0; }
-}
-
-
-if (j2 == 1 &amp;&amp; jumptimer &lt; maxjumptimer) {
-    jumptimer++;
-    if (yspeed &gt; -5 &amp;&amp; !place_meeting(x, y - 1 - yspeed, obj_wall)) yspeed = -5;
-}
-
-if (!grounded) { 
-    if (yspeed &lt;= 0) sprite_index = jumpspr; image_index = 0; 
-    if (yspeed &gt; 0) sprite_index = fallspr; image_index = 0; 
-} 
-    //if (place_meeting(x,y+-abs(yspeed) - 1,obj_wall)) { grounded = false; wallsliding = false; slid = false;}
-
-//Shooting
-if (shoot == 1 &amp;&amp; !boosted &amp;&amp; !sliding) {
-    if (instance_number(bullet) &lt; bulletlimit) 
-        { shoottimer++; }
-    else {
-        shoottimer = 1;
-    }
-    if (shoottimer &lt; 0) {
-        if (xspeed == 0) {
-            sprite_index = smearspr; framenum = 0;
-        }
-    } else {
-        if (shoottimer mod firerate == 0) {
-            event_user(EV_SHOOT);
-            framenum = 1;
-            screenShake(5, 1);
-        }
-        if (shoottimer mod (firerate - 2) == 0) {
-            framenum = 0;
-        }
-        if !((r == 1 &amp;&amp; l != -1) || (r != 1 &amp;&amp; l == -1)) {
-            image_index = framenum;
-            sprite_index = shootspr;
-        }
-        
-        if (!grounded) { 
-            if (yspeed &lt;= 0) sprite_index = jumpshootspr; //image_index = 0; 
-            if (yspeed &gt; 0) sprite_index = fallshootspr; //image_index = 0; 
-        } 
-    }
-} else {
-    framenum = 0;
-    shoottimer = -maxshoottimer;
-}
-
-if (wallsliding &amp;&amp; !grounded) {
-    sprite_index = wallslidespr;
-}
-
-//Inventory system
-if(collecting == true) {
-    if (items &lt; maxitems) {
-        global.inventory[currentemptyslot] = collecteditem;
-        didyoudothething = true;
-        collecting = false; 
-        items += 1;
-    }
-    else {
-        full = true;
-        collecting = false;
-    }
-}
-for(i = 0; i &lt; maxitems; i += 1) {
-    j -= 1
-    if (global.inventory[i] == -1) {
-        currentemptyslot = i;
-    }
-}
-j = maxitems;
-
-if (one == 1) {
-    currentslot = 0;
-}
-if (two == 1) {
-    currentslot = 1;
-}
-if (three == 1) {
-    currentslot = 2;
-}
-if (four == 1) {
-    currentslot = 3;
-}
-if (five == 1) {
-    currentslot = 4;
-}
-if (six == 1) {
-    currentslot = 5;
-}
-if (seven == 1) {
-    currentslot = 6;
-}
-if (eight == 1) {
-    currentslot = 7;
-}
-
-/*
-if (shoot == 1) {
-    if (global.inventory[currentslot] != -1) {
-        useitem = collecteditem;
-        global.inventory[currentslot] = -1;
-        items -= 1;
-    }
-}
-*/
-
-if (y &gt; room_height &amp;&amp; !hollered) { audio_play_sound(snd_goofyholler, 11, 0); hollered = true; }
-footAngle -= xspeed*1.2;
-
-//Hurt
-if (iF &gt; 60) {
-    sprite_index = hurtspr;
 }
 </string>
           </argument>
@@ -507,9 +515,11 @@ if (wallsliding &amp;&amp; !grounded) image_xscale = -image_xscale;
           <argument>
             <kind>1</kind>
             <string>if (hp &lt;= 0) {
-    instance_destroy();
+    audio_stop_all();
+    playSFX(snd_hit);
+    deathAnim = true;
 }
-iFrames = 120; //Hardcoding this because reasons
+iFrames *= 2; //Hardcoding this because reasons
 iF = iFrames;
 xspeed += -image_xscale*7;
 yspeed -= 2;
@@ -537,7 +547,8 @@ playSFX(snd_hit);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (textcache != "This message shouldn't appear.  ") {
+            <string>display_set_gui_size(view_wview[0], view_hview[0]);
+if (textcache != "This message shouldn't appear.  ") {
     draw_set_font(font_gamefont);
     draw_text(20, 120, textcache);
 }
@@ -559,10 +570,11 @@ if (fading == true) {
 }
 
 //Healthbar
-draw_rectangle_colour(view_wview[0]/7 + sprite_get_width(spr_redhpicon)/2.2, sprite_get_height(spr_redhpicon)*1.2, (hp/maxhp)*healthbarSize + view_wview[0]/7 + sprite_get_height(spr_redhpicon)/2.2, 10 + sprite_get_height(spr_redhpicon)*1.2, c_red, c_red, c_red, c_red, false);
-draw_sprite(spr_redhpbar, -1, view_wview[0]/7 + sprite_get_width(spr_redhpicon)/2.2, sprite_get_height(spr_redhpbar)*1.2 + 10);
-draw_sprite(spr_redhpicon, -1, view_wview[0]/7, sprite_get_height(spr_redhpicon)*1.2);
-
+if (!deathAnim) {
+    draw_rectangle_colour(view_wview[0]/7 + sprite_get_width(spr_redhpicon)/2.2, sprite_get_height(spr_redhpicon)*1.2, (hp/maxhp)*healthbarSize + view_wview[0]/7 + sprite_get_height(spr_redhpicon)/2.2, 10 + sprite_get_height(spr_redhpicon)*1.2, c_red, c_red, c_red, c_red, false);
+    draw_sprite(spr_redhpbar, -1, view_wview[0]/7 + sprite_get_width(spr_redhpicon)/2.2, sprite_get_height(spr_redhpbar)*1.2 + 10);
+    draw_sprite(spr_redhpicon, -1, view_wview[0]/7, sprite_get_height(spr_redhpicon)*1.2);
+}
 if (fadetime &lt;= 0) { 
     full = false;
     fading = false;
@@ -605,19 +617,19 @@ if (useitem == 0) {
             <kind>1</kind>
             <string>event_inherited();
 
-draw_set_color(c_black);
-draw_text(x, y - sprite_height*2, iF);
-draw_text(x, y - sprite_height*3, sprite_get_name(sprite_index)); 
+//draw_set_color(c_black);
+//draw_text(x, y - sprite_height*2, iF);
+//draw_text(x, y - sprite_height*3, sprite_get_name(sprite_index)); 
 //draw_text(x, y - sprite_height*4, shinesparking);
 //draw_text(x, y - sprite_height*3, ssdir);
 //draw_text(x, y - sprite_height*2, sstimer);
 
-for(i = y; i &lt; y + yspeed + 1; i++) {
-    draw_point(x,i);
-}
+//for(i = y; i &lt; y + yspeed + 1; i++) {
+//    draw_point(x,i);
+//}
 
 
-if (shoot == 1) {
+if (shoot == 1 &amp;&amp; !deathAnim) {
     if (wallsliding &amp;&amp; !grounded) image_xscale = -image_xscale;
     draw_sprite_ext(weaponspr, -1, x + (sprite_width*0.3) - framenum*image_xscale, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
     if (wallsliding &amp;&amp; !grounded) image_xscale = -image_xscale;

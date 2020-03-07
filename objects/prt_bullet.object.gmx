@@ -81,7 +81,7 @@ if (PAUSED) exit;
 lt++
 if (lt &gt; lifeTime) instance_destroy();
 if (x &lt; -sprite_width/2) instance_destroy();
-if (instance_exists(prt_player)) {
+if (instance_exists(prt_ship)) {
     if (x &gt; TRUE_ROOM_WIDTH + sprite_width/2) instance_destroy();
 } else {
     if (x &gt; room_width + sprite_width/2) instance_destroy();

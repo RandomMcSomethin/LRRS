@@ -150,7 +150,36 @@ gameOver = false;
 gOTimer = -1;
 deathSpr = spr_gitgud;
 gODrawTimer = -1;
-gameOverText = "Ya dun goofed."
+
+gameOverText = "Ya dun goofed.";
+gOTexts[0] = "Ya dun goofed.";
+gOTexts[1] = "Press + " + chr(KEY_SHOOT) + " to pay respects.";
+gOTexts[2] = "He's dead, chief.";
+gOTexts[3] = "Little Red [R]ocket Ship";
+gOTexts[4] = "RIP";
+gOTexts[5] = "Oof.";
+gOTexts[6] = "That must have hurt.";
+gOTexts[7] = "It's never ogre.";
+gOTexts[8] = "Wasted.";
+gOTexts[9] = "Also try Touhou!";
+gOTexts[10] = "Try the sequel... when it comes out.";
+gOTexts[11] = "Game over, yeah.";
+gOTexts[12] = "Winners don't do drugs.";
+gOTexts[13] = "You may want to reconsider your strategy.";
+gOTexts[14] = "A loser is you.";
+gOTexts[15] = "Well, you gave it your best shot.";
+gOTexts[16] = "You died an untimely death.";
+gOTexts[17] = "What an exceptionally depressing way to die.";
+gOTexts[19] = "Try to dodge the bullets next time.";
+gOTexts[20] = "Once more, with feeling.";
+gOTexts[21] = "Okay, now that's just pathetic.";
+gOTexts[22] = "Really?";
+gOTexts[23] = "HOW IS HE";
+gOTexts[24] = "Hmm, impressive.";
+gOTexts[25] = "Whatever";
+gOTexts[26] = "Mhm, I see. *takes notes*";
+gOTexts[27] = "I... have nothing to say on this one.";
+
 isLevel = false;
 logName = "Pick the log you would like to read."
 logSprite = -1;
@@ -205,8 +234,11 @@ if (screenSize &lt; 2) {
 }
 //Game Over handler
 if (gOTimer == 0) {
-    audio_stop_all();
-    playSFX(snd_playerexplosion);
+    //audio_stop_all();
+    if (instance_exists(obj_red)) {
+        screenShake(60, 1);
+        playSFX(snd_impact);
+    }
 }
 if (gOTimer == 60) {
     playMusic(mus_gameoverloop);
@@ -258,6 +290,9 @@ if (sSTimer &gt; 0) {
           <argument>
             <kind>1</kind>
             <string>if (PAUSED) exit;
+if (gOTimer == 1) {
+    gameOverText = gOTexts[irandom(array_length_1d(gOTexts) - 1)];
+}
 gOTimer++;
 </string>
           </argument>
@@ -291,6 +326,42 @@ part_system_destroy(SNAME);
         </arguments>
       </action>
     </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (gODrawTimer &gt; -1) {
+    display_set_gui_size(view_wview[0], view_hview[0]);
+    if (gODrawTimer &lt; 60) {
+        gODrawTimer++;
+    }
+    draw_set_alpha((1/60)*gODrawTimer)
+    draw_set_color(c_red);
+    draw_set_font(font_gamefont);
+    draw_text(20, 20, "You Died");
+    draw_set_font(font_menufont);
+    draw_text(20, 40, gameOverText);
+    draw_text(20, view_hview[0]/3, "Killed by: " + KILLER);
+    draw_sprite_ext(deathSpr, -1, 84, view_hview[0] * 3/4, 2, 2, 0, c_white, (1/60)*gODrawTimer);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -312,19 +383,9 @@ part_system_destroy(SNAME);
     event_user(EV_GAMEOVER);
 }
 if (gODrawTimer &gt; -1) {
-    if (gODrawTimer &lt; 60) {
-        gODrawTimer++;
-    }
     draw_set_alpha((1/60)*gODrawTimer)
     draw_set_color(c_black);
     draw_rectangle(0, 0, room_width, room_height, false);
-    draw_set_color(c_red);
-    draw_set_font(font_gamefont);
-    draw_text(20, 20, "You Died");
-    draw_set_font(font_menufont);
-    draw_text(20, 40, gameOverText);
-    draw_text(20, room_height/3, "Killed by: " + KILLER);
-    draw_sprite_ext(deathSpr, -1, 84, room_height * 3/4, 2, 2, 0, c_white, (1/60)*gODrawTimer);
 }
 if (room == rm_enemylogs) {
     //drawLogs();

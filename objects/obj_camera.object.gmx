@@ -53,14 +53,15 @@ camAccel = 1;
             <kind>1</kind>
             <string>if (instance_exists(obj_red)) {
     player = obj_red;
-} else { player = noone; }
+    
+    if (x &lt; player.x || x &gt; player.x) {
+        xspeed = ((player.x + player.shoot*20*player.image_xscale) - x)/10
+    }
+    if (y &lt; player.y || y &gt; player.y) {
+        yspeed = (player.y - y)/10
+    }
 
-if (x &lt; player.x || x &gt; player.x) {
-    xspeed = ((player.x + player.shoot*20*player.image_xscale) - x)/10
-}
-if (y &lt; player.y || y &gt; player.y) {
-    yspeed = (player.y - y)/10
-}
+} else { player = noone; }
 
 if (MANAGER.sSTimer &gt; 0) {
     if (MANAGER.sSTimer mod 2 == 0) {

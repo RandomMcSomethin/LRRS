@@ -88,6 +88,7 @@ for (i = 0; i &lt; flagCount; i++) {
 blendTimer = 0;
 
 canReflectCyan = false; //Can reflect cyan projectiles?
+explodes = true; //Explodes on death
 </string>
           </argument>
         </arguments>
@@ -148,7 +149,7 @@ if (!setImgSpeed) { imgSpeed = image_speed; setImgSpeed = true; }
 image_speed = imgSpeed*moveFactor*(1 - stunned);
 
 if (!isBullet) {
-    if (hp &lt;= 0 &amp;&amp; !isBoss) {
+    if (hp &lt;= 0 &amp;&amp; !isBoss &amp;&amp; explodes) {
         instance_destroy();
     } else if (hp &lt;= 0) event_user(4);
 }
@@ -210,7 +211,7 @@ if (!isBullet) {
             <string>///Hit event
 iF = iFrames;
 collidedEntity = noone;
-if (hp &lt;= 0 &amp;&amp; !isBoss) {
+if (hp &lt;= 0 &amp;&amp; !isBoss &amp;&amp; explodes) {
     instance_destroy();
 } else if (hp &lt;= 0) event_user(4);
 </string>
