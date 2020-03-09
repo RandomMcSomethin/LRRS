@@ -36,7 +36,7 @@ if (instance_exists(prt_player)) {
     target = prt_player;
 }
 
-image_speed = 5/60;
+image_speed = 7/60;
 
 idlespr = spr_ar496_idle;
 walkspr = spr_ar496_walk;
@@ -111,6 +111,7 @@ for (i = 0; i &lt; choose(5, 7); i++) {
 if (PAUSED) exit;
 if (MANAGER.gOTimer &gt; 0) exit;
 platPhysics();
+enemyMovementBackAndForth();
 //Targeting stuff
 if (instance_exists(prt_player)) {
     target = prt_player;
