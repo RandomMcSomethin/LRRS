@@ -264,6 +264,8 @@
         <script>scripts\enemyMovementLaser.gml</script>
         <scripts name="Platform">
           <script>scripts\enemyMovementBackAndForth.gml</script>
+          <script>scripts\enemyMovementSearch.gml</script>
+          <script>scripts\enemyMovementShootAtTarget.gml</script>
         </scripts>
       </scripts>
       <scripts name="Weapon Scripts">
@@ -284,6 +286,8 @@
       <script>scripts\statFX.gml</script>
       <script>scripts\grazeBonus.gml</script>
       <script>scripts\platPhysics.gml</script>
+      <script>scripts\searchForTarget.gml</script>
+      <script>scripts\canSeeTarget.gml</script>
     </scripts>
     <scripts name="Misc.">
       <script>scripts\drawLogs.gml</script>

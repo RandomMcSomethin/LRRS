@@ -32,11 +32,13 @@ logNumber = -1; /*Gets its info from an enemy log rather than the
                 object itself if set to anything but -1*/
 attackTimer = 0;
 roundAttackTimer = 0;
+sightTimer = 0;
+
 if (instance_exists(prt_player)) {
     target = prt_player;
 }
 
-image_speed = 7/60;
+image_speed = 8/60;
 
 idlespr = spr_ar496_idle;
 walkspr = spr_ar496_walk;
@@ -48,6 +50,10 @@ maskSprite = -1;
 maskColor = c_white;
 
 walkDir = 0;
+phase = 0; //0 = walking, 1 = saw target
+targetPosX = x;
+targetPosY = y;
+sightRadius = 80;
 </string>
           </argument>
         </arguments>
@@ -111,12 +117,44 @@ for (i = 0; i &lt; choose(5, 7); i++) {
 if (PAUSED) exit;
 if (MANAGER.gOTimer &gt; 0) exit;
 platPhysics();
-enemyMovementBackAndForth();
 //Targeting stuff
 if (instance_exists(prt_player)) {
     target = prt_player;
 } else target = noone;
 
+//Saw a target, now fire!
+if (phase != 1 &amp;&amp; canSeeTarget(sightRadius, target, 90 + 90*image_xscale)) {
+    phase = 1;
+    attackTimer = 0;
+    xspeed = 0;
+}
+
+//Checking for the location of the target
+if (phase == 1) {
+    if (attackTimer mod 20 == 0) {
+        //oh gosh oh frick where'd he go
+        if (!searchForTarget(sightRadius, target, false)) { 
+            attackTimer = 0;
+            phase = 2;
+            xspeed = 0;
+        } else {
+            targetPosX = target.x;
+            targetPosY = target.y;
+        }
+    }
+}
+
+switch phase {
+    case 0:
+        enemyMovementBackAndForth();
+    break;
+    case 1:
+        enemyMovementShootAtTarget();
+    break;
+    case 2:
+        enemyMovementSearch();
+    break;
+}
 </string>
           </argument>
         </arguments>
@@ -141,10 +179,44 @@ if (instance_exists(prt_player)) {
             <kind>1</kind>
             <string>if (instance_exists(target)) {
     b = instance_create(x, y, obj_enemybullet);
-    var fireAngle = point_direction(x, y, target.x, target.y - 4);
+    if (sprite_index == aimfspr) var fireAngle = point_direction(x, y, x - image_xscale, y);
+    if (sprite_index == aimuspr) var fireAngle = point_direction(x, y, x - image_xscale, y - 1);
     b.xspeed = 3*cos(degtorad(fireAngle));
     b.yspeed = -3*sin(degtorad(fireAngle));
     playSFX(snd_enemyshoot);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>event_inherited();
+if (!searchForTarget(sightRadius, target, false)) {
+    if (phase != 2) {
+        attackTimer = 0;
+        phase = 2;
+        xspeed = 0;
+    }
+} else {
+    phase = 1;
+    xspeed = 0;
 }
 </string>
           </argument>
@@ -174,10 +246,11 @@ if (instance_exists(prt_player)) {
 }
 drawFreeze();
 drawStun();
-//draw_text(x, y - 5, freezeTimer);
-//draw_text(x, y - 10, frozen);
-//draw_text(x, y - 10, resist[2]);
+//draw_text(x, y - 5, attackTimer);
+//draw_text(x, y - 10, x);
+//draw_text(x, y - 15, targetPosX);
 //draw_text(x, y - 5, stunned);
+//draw_point(x + lengthdir_x(sightRadius, 90 + 90*image_xscale), y);
 </string>
           </argument>
         </arguments>
